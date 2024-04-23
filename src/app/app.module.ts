@@ -11,6 +11,8 @@ import { ApiService } from './services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ShopOrderFormComponent } from './shop-orders/form/shop-order.component';
+import { CommonModule } from '@angular/common';
+import { ShopOrdersListComponent } from './shop-orders/list/shop-order.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { ShopOrderFormComponent } from './shop-orders/form/shop-order.component'
     LoginComponent,
     UsersComponent,
     ShopOrderFormComponent,
+    ShopOrdersListComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    CommonModule,
     JwtModule.forRoot({
       config: {
       tokenGetter: () => {

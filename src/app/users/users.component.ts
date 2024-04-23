@@ -14,7 +14,6 @@ export class UsersComponent {
     this.api.getAllUsers(1, 15).subscribe({
       next: (res: User[]) => {
         this.users = res;
-        console.log(res);
       },
       error: (err: any) => console.log(err),
     });

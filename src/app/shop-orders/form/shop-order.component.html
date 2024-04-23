@@ -1,24 +1,117 @@
+<div class="flex-row justify-center">
+  <div class="flex justify-end">
+    <button
+      (click)="addOrder()"
+      class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center me-2 mb-2"
+    >
+      Adauga comanda
+    </button>
+  </div>
 
-<div class = "flex-row justify-center w-1/2 ">
-    <form [formGroup]="shopOrderForm">
-        <div class="flex-row space-y-4" > 
-            <div>
-                <label for="supplier" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Furnizor</label>
-                <input formControlName="supplier" type="text" id="supplier" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Furnizor" required>
-            </div>
-
-            <div>
-                <div class="relative max-w-sm">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                      </svg>
-                    </div>
-                    <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-                  </div>
-            </div>
+  <form [formGroup]="shopOrderForm">
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+      <div>
+        <label
+          for="supplier"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Furnizor</label
+        >
+        <input
+          formControlName="supplier"
+          type="text"
+          id="supplier"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Furnizor"
+          required
+        />
+      </div>
+      <div>
+        <label
+          for="arrivalDate"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Data Sosire</label
+        >
+        <div class="relative max-w-sm">
+          <input
+            type="date"
+            formControlName="arrivalDate"
+            id="arrivalDate"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Selecteaza data"
+          />
         </div>
-       
-        <button  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-9">Submit</button>
-    </form>
+      </div>
     </div>
+  </form>
+  <form [formGroup]="productForm">
+    <button
+      type="button"
+      (click)="addProduct()"
+      class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+    >
+      Adauga Produs
+    </button>
+    <div formArrayName="products">
+      <div
+        *ngFor="let product of products.controls; let i = index"
+        [formGroupName]="i"
+        class="flex justify-evenly py-3"
+      >
+        <label
+          for="productId"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Nume:
+          <select
+            formControlName="productId"
+            type="text"
+            id="productId"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Produs"
+            required
+          >
+            <option *ngFor="let option of productOptions" [value]="option.id">
+              {{ option.name }}
+            </option>
+          </select>
+        </label>
+        <label
+          for="price"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Pret:
+          <input
+            type="number"
+            formControlName="price"
+            id="price"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required
+          />
+        </label>
+
+        <label
+          for="quantity"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Cantitate:
+          <input
+            formControlName="quantity"
+            id="quantity"
+            type="number"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required
+          />
+        </label>
+        <div class="w-20 pt-7">
+           {{product.get('price')?.value * product.get('quantity')?.value}} lei
+          </div>
+        <button type="button" (click)="deleteProduct(i)" class="text-lg">
+          X
+        </button>
+      </div>
+    </div>
+  </form>
+  <hr><div class="flex justify-end"><div class="m-4">{{totalCost}} lei</div></div>
+</div>

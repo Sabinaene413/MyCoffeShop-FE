@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import {  ShopOrderFormComponent } from './shop-orders/form/shop-order.component';
+import { ShopOrdersListComponent } from './shop-orders/list/shop-order.component';
 
 
 const routes: Routes = [
@@ -15,8 +16,12 @@ const routes: Routes = [
     component: UsersComponent
   },
   {
-    path: 'shop-oreders',
+    path: 'add-shop-order',
     component: ShopOrderFormComponent
+  },
+  {
+    path: 'shop-orders',
+    component: ShopOrdersListComponent
   }
 ]
 

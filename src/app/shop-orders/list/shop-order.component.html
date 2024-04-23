@@ -1,0 +1,37 @@
+<div class="flex justify-end">
+<a href="/add-shop-order"
+class=" text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4
+focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-4 py-2
+text-center me-2 mb-2">
+Adauga comanda noua
+</a>
+</div>
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">Id</th>
+                <th scope="col" class="px-6 py-3">Furnizor</th>
+                <th scope="col" class="px-6 py-3">Data Sosirii</th>
+                <th scope="col" class="px-6 py-3">Primita</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let shopOrder of shopOrders" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ shopOrder.id }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ shopOrder.supplier }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ shopOrder.arrivalDate | date: 'dd/MM/yyyy' }}
+                </td>
+                <td class="px-6 py-4">
+                    <input id="default-checkbox" type="checkbox" value="shopOrder.received"
+                        class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
