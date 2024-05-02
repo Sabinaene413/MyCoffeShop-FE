@@ -3,16 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './features/navbar/navbar.component';
+import { LoginComponent } from './features/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ApiService } from './services/api.service';
+import { ApiUserService } from './services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UsersComponent } from './users/users.component';
-import { ShopOrderFormComponent } from './shop-orders/form/shop-order.component';
+import { UsersComponent } from './features/users/users.component';
 import { CommonModule } from '@angular/common';
-import { ShopOrdersListComponent } from './shop-orders/list/shop-order.component';
+import { ShopOrdersListComponent } from './features/shop-orders/list/shop-order.component';
+import { ShopOrderFormComponent } from './features/shop-orders/form/shop-order.component';
+import { InventoriesListComponent } from './features/inventories/list/list.component';
+import { InventoryFormComponent } from './features/inventories/form/form.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ShopOrdersListComponent } from './shop-orders/list/shop-order.component
     LoginComponent,
     UsersComponent,
     ShopOrderFormComponent,
-    ShopOrdersListComponent
+    ShopOrdersListComponent,
+    InventoriesListComponent,
+    InventoryFormComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,7 @@ import { ShopOrdersListComponent } from './shop-orders/list/shop-order.component
       },
     }),
   ],
-  providers: [[ApiService]],
+  providers: [[ApiUserService]],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

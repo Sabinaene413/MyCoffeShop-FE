@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { User } from '../Models/models';
+import { ApiUserService } from '../../services/api.service';
+import { User } from '../../models/users-models';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -8,7 +8,7 @@ import { User } from '../Models/models';
 })
 export class UsersComponent {
   users: User[] = [];
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiUserService) {}
 
   ngOnInit(): void {
     this.api.getAllUsers(1, 15).subscribe({

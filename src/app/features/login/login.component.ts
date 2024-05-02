@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../services/api.service';
+import { ApiUserService } from '../../services/api.service';
 import { Router } from '@angular/router';
 
 
@@ -16,12 +16,12 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private api: ApiService,
+    private api: ApiUserService,
     private router: Router
   ) {
     this.loginForm = fb.group({
-      email: fb.control('', [Validators.required, Validators.email]),
-      password: fb.control('', [
+      email: fb.control('coffee_shop@gmail.com', [Validators.required, Validators.email]),
+      password: fb.control('1234', [
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(15),

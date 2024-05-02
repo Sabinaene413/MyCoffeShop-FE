@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiShopOrderService } from '../api.service.shop-orders';
-import { ShopOrder, ShopProduct } from 'src/app/Models/shop-order';
+import { ShopOrder, ShopProduct } from 'src/app/models/shop-order-models';
 
 @Component({
   selector: 'app-shopOrder',
