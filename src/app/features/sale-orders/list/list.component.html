@@ -18,6 +18,7 @@
       <tr>
         <th scope="col" class="px-6 py-3">Id</th>
         <th scope="col" class="px-6 py-3">Data Comanda</th>
+        <th scope="col" class="px-6 py-3">Cost Total</th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +34,9 @@
         </th>
         <td class="px-6 py-4">
           {{ saleOrder.orderDate | date : "dd/MM/yyyy HH:mm" }}
+        </td>
+        <td class="px-6 py-4">
+          {{ saleOrder.cost }}
         </td>
       </tr>
     </tbody>
