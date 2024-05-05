@@ -12,6 +12,8 @@ import { SaleProductsListComponent } from './features/sale-products/list/list.co
 import { SaleProductFormComponent } from './features/sale-products/form/form.component';
 import { EmployeeFormComponent } from './features/employees/form/form.component';
 import { EmployeesListComponent } from './features/employees/list/list.component';
+import { SaleOrderFormComponent } from './features/sale-orders/form/form.component';
+import { SaleOrdersListComponent } from './features/sale-orders/list/list.component';
 
 
 const routes: Routes = [
@@ -62,6 +64,14 @@ const routes: Routes = [
   {
     path: 'employees',
     component: EmployeesListComponent
+  },
+  {
+    path: 'add-sale-order',
+    component: SaleOrderFormComponent
+  },
+  {
+    path: 'sale-orders',
+    component: SaleOrdersListComponent
   },
 ]
 
