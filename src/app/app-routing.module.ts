@@ -8,6 +8,10 @@ import { InventoriesListComponent } from './features/inventories/list/list.compo
 import { InventoryFormComponent } from './features/inventories/form/form.component';
 import { ShopProductFormComponent } from './features/shop-products/form/form.component';
 import { ShopProductsListComponent } from './features/shop-products/list/list.component';
+import { SaleProductsListComponent } from './features/sale-products/list/list.component';
+import { SaleProductFormComponent } from './features/sale-products/form/form.component';
+import { EmployeeFormComponent } from './features/employees/form/form.component';
+import { EmployeesListComponent } from './features/employees/list/list.component';
 
 
 const routes: Routes = [
@@ -42,6 +46,22 @@ const routes: Routes = [
   {
     path: 'shop-products',
     component: ShopProductsListComponent
+  },
+  {
+    path: 'add-saleProduct',
+    component: SaleProductFormComponent
+  },
+  {
+    path: 'sale-products',
+    component: SaleProductsListComponent
+  },
+  {
+    path: 'add-employee',
+    component: EmployeeFormComponent
+  },
+  {
+    path: 'employees',
+    component: EmployeesListComponent
   },
 ]
 
