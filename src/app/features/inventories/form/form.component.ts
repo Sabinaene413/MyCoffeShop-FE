@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiInventoryService } from '../api.service.inventories';
 import { ApiShopProductService } from '../../shop-products/api.service.shop-products';
-import { Inventory } from 'src/app/models/inventory-models';
-import { ShopProduct } from 'src/app/models/shop-product-models';
+import { Inventory } from 'src/app/features/inventories/inventory-models';
+import { ShopProduct } from 'src/app/features/shop-products/shop-product-models';
 
 @Component({
   selector: 'app-inventory',

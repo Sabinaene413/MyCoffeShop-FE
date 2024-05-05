@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ShopProduct } from 'src/app/models/shop-product-models';
+import { ShopProduct } from 'src/app/features/shop-products/shop-product-models';
 import { ApiShopProductService } from '../api.service.shop-products';
 
 @Component({

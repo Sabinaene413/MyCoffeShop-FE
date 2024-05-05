@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ApiInventoryService } from '../api.service.inventories';
-import { Inventory } from 'src/app/models/inventory-models';
+import { Inventory } from 'src/app/features/inventories/inventory-models';
 import { ApiShopProductService } from '../../shop-products/api.service.shop-products';
-import { ShopProduct } from 'src/app/models/shop-product-models';
+import { ShopProduct } from 'src/app/features/shop-products/shop-product-models';
 
 @Component({
   selector: 'app-shop-order-list',

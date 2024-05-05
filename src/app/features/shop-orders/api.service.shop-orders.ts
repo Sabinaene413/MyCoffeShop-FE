@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
-import { ShopOrder } from 'src/app/models/shop-order-models';
-import { ShopProduct } from 'src/app/models/shop-product-models';
+import { ShopOrder } from 'src/app/features/shop-orders/shop-order-models';
+import { ShopProduct } from 'src/app/features/shop-products/shop-product-models';
 
 @Injectable({
   providedIn: 'root',

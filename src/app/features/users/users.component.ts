@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiUserService } from '../../services/api.service';
-import { User } from '../../models/users-models';
+import { User } from './users-models';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
