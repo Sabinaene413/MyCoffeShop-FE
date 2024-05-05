@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiInventoryService } from '../api.service.inventories';
-import { ShopProduct } from 'src/app/models/shop-order-models';
 import { ApiShopProductService } from '../../shop-products/api.service.shop-products';
 import { Inventory } from 'src/app/models/inventory-models';
+import { ShopProduct } from 'src/app/models/shop-product-models';
 
 @Component({
   selector: 'app-inventory',

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiShopOrderService } from '../api.service.shop-orders';
-import { ShopOrder, ShopProduct } from 'src/app/models/shop-order-models';
+import { ShopProduct } from 'src/app/models/shop-product-models';
 
 @Component({
   selector: 'app-shopOrder',
@@ -55,7 +55,7 @@ export class ShopOrderFormComponent implements OnInit {
     product.valueChanges.subscribe((productModified: any) => {
       const selectedProduct = this.productOptions.find(
         (product) =>
-          product.id.toString() === productModified.productId.toString()
+          product.id?.toString() === productModified.productId.toString()
       );
       if (selectedProduct) {
         product.get('price')?.setValue(selectedProduct.price.toString());

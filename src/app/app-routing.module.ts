@@ -6,6 +6,8 @@ import { ShopOrderFormComponent } from './features/shop-orders/form/shop-order.c
 import { ShopOrdersListComponent } from './features/shop-orders/list/shop-order.component';
 import { InventoriesListComponent } from './features/inventories/list/list.component';
 import { InventoryFormComponent } from './features/inventories/form/form.component';
+import { ShopProductFormComponent } from './features/shop-products/form/form.component';
+import { ShopProductsListComponent } from './features/shop-products/list/list.component';
 
 
 const routes: Routes = [
@@ -32,7 +34,15 @@ const routes: Routes = [
   {
     path: 'add-inventory',
     component: InventoryFormComponent
-  }
+  },
+  {
+    path: 'add-shopProduct',
+    component: ShopProductFormComponent
+  },
+  {
+    path: 'shop-products',
+    component: ShopProductsListComponent
+  },
 ]
 
 @NgModule({

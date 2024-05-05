@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ApiInventoryService } from '../api.service.inventories';
 import { Inventory } from 'src/app/models/inventory-models';
 import { ApiShopProductService } from '../../shop-products/api.service.shop-products';
-import { ShopProduct } from 'src/app/models/shop-order-models';
+import { ShopProduct } from 'src/app/models/shop-product-models';
 
 @Component({
   selector: 'app-shop-order-list',
@@ -21,7 +21,7 @@ export class InventoriesListComponent {
     this.apiProduct.getAllProducts().subscribe({
       next: (res: ShopProduct[]) => {
         this.shopProducts = res.reduce((acc: any, curr) => {
-          acc[curr.id] = curr.name;
+          acc[curr.id ?? '0'] = curr.name;
           return acc;
         }, {});
       },

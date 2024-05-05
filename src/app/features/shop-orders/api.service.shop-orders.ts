@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
-import { ShopProduct, ShopOrder } from 'src/app/models/shop-order-models';
+import { ShopOrder } from 'src/app/models/shop-order-models';
+import { ShopProduct } from 'src/app/models/shop-product-models';
 
 @Injectable({
   providedIn: 'root',
@@ -19,16 +20,13 @@ export class ApiShopOrderService {
   }
 
   getShopOrders(): Observable<ShopOrder[]> {
-    return this.http.post<ShopOrder[]>(
-      this.baseUrl + '/ShopOrder/Filter',
-      {}
-    );
+    return this.http.post<ShopOrder[]>(this.baseUrl + '/ShopOrder/Filter', {});
   }
 
   markOrderReceived(id: number): Observable<ShopOrder> {
     return this.http.post<ShopOrder>(
       this.baseUrl + '/ShopOrder/MarkOrderReceived',
-      {Id : id}
+      { Id: id }
     );
   }
 

@@ -8,12 +8,6 @@ export interface ShopOrder {
     products: ShopProductOrder[];
 }
 
-export interface ShopProduct {
-    id: number;
-    name: string;
-    price: number;
-}
-
 export interface ShopProductOrder {
     shopProductId: number;
     shopOrderId: number;

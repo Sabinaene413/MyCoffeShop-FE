@@ -15,6 +15,8 @@ import { ShopOrdersListComponent } from './features/shop-orders/list/shop-order.
 import { ShopOrderFormComponent } from './features/shop-orders/form/shop-order.component';
 import { InventoriesListComponent } from './features/inventories/list/list.component';
 import { InventoryFormComponent } from './features/inventories/form/form.component';
+import { ShopProductFormComponent } from './features/shop-products/form/form.component';
+import { ShopProductsListComponent } from './features/shop-products/list/list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { InventoryFormComponent } from './features/inventories/form/form.compone
     ShopOrderFormComponent,
     ShopOrdersListComponent,
     InventoriesListComponent,
-    InventoryFormComponent
+    InventoryFormComponent,
+    ShopProductFormComponent,
+    ShopProductsListComponent
   ],
   imports: [
     BrowserModule,
