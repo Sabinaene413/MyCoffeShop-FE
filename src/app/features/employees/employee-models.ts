@@ -1,5 +1,6 @@
+import { LocationDto } from "../users/users-models";
 
-export interface Employee {
+export interface Employee extends LocationDto {
     id?: number;
     firstName: string;
     lastName: string;

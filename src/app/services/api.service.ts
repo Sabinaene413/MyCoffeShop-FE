@@ -35,11 +35,15 @@ export class ApiUserService {
   getTokenUserInfo(): User | null {
     if (!this.isLoggedIn()) return null;
     let token = this.jwt.decodeToken();
+    
     let user: User = {
-      id: token.Id,
+      id: token._uid,
       firstName: token.FirstName,
       lastName: token.LastName,
       email: token.Email,
+      role: token.role,
+      locationId: token.LocationId,
+      locationName: token.LocationName,
     };
     return user;
   }

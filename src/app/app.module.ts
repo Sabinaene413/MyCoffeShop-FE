@@ -23,6 +23,8 @@ import { EmployeeFormComponent } from './features/employees/form/form.component'
 import { EmployeesListComponent } from './features/employees/list/list.component';
 import { SaleOrdersListComponent } from './features/sale-orders/list/list.component';
 import { SaleOrderFormComponent } from './features/sale-orders/form/form.component';
+import { CoffeeShopFormComponent } from './features/coffee-shops/form/form.component';
+import { CoffeeShopsListComponent } from './features/coffee-shops/list/list.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { SaleOrderFormComponent } from './features/sale-orders/form/form.compone
     EmployeeFormComponent,
     EmployeesListComponent,
     SaleOrdersListComponent,
-    SaleOrderFormComponent
+    SaleOrderFormComponent,
+    CoffeeShopFormComponent,
+    CoffeeShopsListComponent
   ],
   imports: [
     BrowserModule,

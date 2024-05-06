@@ -1,4 +1,6 @@
-export interface SaleOrder {
+import { LocationDto } from "../users/users-models";
+
+export interface SaleOrder extends LocationDto {
     id: number;
     cost: number;
     orderDate: Date;

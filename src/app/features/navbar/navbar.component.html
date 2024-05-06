@@ -29,8 +29,11 @@
         <a class="flex ml-2 md:mr-24">
           <span
             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-latte-200 dark:text-white"
-            >MyCoffeShop</span
-          >
+            > MyCoffeShop </span
+          > <span *ngIf="this.api.getTokenUserInfo()?.locationId"
+          class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-latte-200 dark:text-white"
+          > {{ ' - Locatie: ' + this.api.getTokenUserInfo()?.locationName }} </span
+        > 
         </a>
       </div>
       <div class="flex items-center">
@@ -56,13 +59,22 @@
           >
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
-                {{ this.api.getTokenUserInfo()?.firstName | titlecase }}
+                Nume: {{ this.api.getTokenUserInfo()?.firstName | titlecase }} {{ this.api.getTokenUserInfo()?.lastName | titlecase }}
+              </p>
+              <p
+                class="text-sm text-gray-900 dark:text-white"
+                role="none"
+              >
+                Rol: {{ this.api.getTokenUserInfo()?.role  | titlecase }}
+              </p>
+              <p *ngIf="this.api.getTokenUserInfo()?.locationId" class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                Locatie: {{ this.api.getTokenUserInfo()?.locationName | titlecase }} 
               </p>
               <p
                 class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                 role="none"
               >
-                {{ this.api.getTokenUserInfo()?.email | titlecase }}
+                Email: {{ this.api.getTokenUserInfo()?.email | titlecase }}
               </p>
             </div>
             <ul class="py-1" role="none">
@@ -122,6 +134,31 @@
             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
           </svg>
           <span class="ml-3">Utilizatori</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/coffee-shops"
+          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-latte-500 dark:hover:bg-gray-700 group"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#8a553e"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="flex-1 ml-3 whitespace-nowrap">Locatii Cafenele</span>
         </a>
       </li>
       <li>

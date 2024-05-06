@@ -3,7 +3,7 @@ import { Employee } from '../employee-models';
 import { ApiEmployeeService } from '../api.service.employees';
 
 @Component({
-  selector: 'app-shop-product-list',
+  selector: 'app-employee-list',
   templateUrl: './list.component.html',
 })
 export class EmployeesListComponent {

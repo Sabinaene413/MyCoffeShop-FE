@@ -1,4 +1,6 @@
-export interface ShopOrder {
+import { LocationDto } from "../users/users-models";
+
+export interface ShopOrder extends LocationDto{
     id: number;
     supplier: string;
     cost: number;

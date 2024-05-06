@@ -17,6 +17,7 @@
     >
       <tr>
         <th scope="col" class="px-6 py-3">Id</th>
+        <th scope="col" class="px-6 py-3">Nume Locație</th>
         <th scope="col" class="px-6 py-3">Furnizor</th>
         <th scope="col" class="px-6 py-3">Data Sosirii</th>
         <th scope="col" class="px-6 py-3">Primită</th>
@@ -33,6 +34,9 @@
         >
           {{ shopOrder.id }}
         </th>
+        <td class="px-6 py-4">
+          {{ shopOrder.locationName }}
+        </td>
         <td class="px-6 py-4">
           {{ shopOrder.supplier }}
         </td>
