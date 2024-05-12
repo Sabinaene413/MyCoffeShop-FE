@@ -1,0 +1,158 @@
+<!-- register.component.html -->
+
+<div
+  class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat"
+  style="
+    background-image: url('https://images8.alphacoders.com/134/1349209.png');
+  "
+>
+  <div
+    class="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8"
+  >
+    <div class="text-white">
+      <div class="mb-8 flex flex-col items-center">
+        <img
+          src="https://www.pngall.com/wp-content/uploads/4/Cafe-Espresso-PNG-Free-Image.png"
+          width="150"
+          alt=""
+          srcset=""
+        />
+        <h1 class="mb-2 text-2xl">My Coffee Shop</h1>
+        <span class="text-gray-300">Creare cont</span>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="mb-4 text-lg">
+          <input
+            formControlName="firstName"
+            class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+            type="text"
+            name="firstName"
+            placeholder="Nume"
+          />
+          <div
+            *ngIf="
+              registerForm.get('firstName')?.errors?.['required'] &&
+              registerForm.get('firstName')?.touched
+            "
+            class="text-red-500"
+          >
+            Numele este obligatoriu
+          </div>
+        </div>
+
+        <div class="mb-4 text-lg">
+          <input
+            formControlName="lastName"
+            class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+            type="text"
+            name="lastName"
+            placeholder="Prenume"
+          />
+          <div
+            *ngIf="
+              registerForm.get('lastName')?.errors?.['required'] &&
+              registerForm.get('lastName')?.touched
+            "
+            class="text-red-500"
+          >
+            Prenumele este obligatoriu
+          </div>
+        </div>
+
+        <div class="mb-4 text-lg">
+          <input
+            formControlName="email"
+            class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+            type="text"
+            name="email"
+            placeholder="Email"
+          />
+          <div
+            *ngIf="
+              registerForm.get('email')?.errors?.['required'] &&
+              registerForm.get('email')?.touched
+            "
+            class="text-red-500"
+          >
+            Adresa de email este obligatorie
+          </div>
+          <div
+            *ngIf="
+              registerForm.get('email')?.errors?.['email'] &&
+              registerForm.get('email')?.touched
+            "
+            class="text-red-500"
+          >
+            Invalid format email
+          </div>
+        </div>
+
+        <div class="mb-4 text-lg">
+          <input
+            formControlName="locationName"
+            class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+            type="text"
+            name="locationName"
+            placeholder="Nume Cafenea"
+          />
+          <div
+            *ngIf="
+              registerForm.get('locationName')?.errors?.['required'] &&
+              registerForm.get('locationName')?.touched
+            "
+            class="text-red-500"
+          >
+            Numele cafenelei este obligatoriu
+          </div>
+        </div>
+
+        <div class="mb-4 text-lg">
+          <input
+            formControlName="password"
+            class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+            type="password"
+            name="password"
+            placeholder="Parola"
+          />
+          <div
+            *ngIf="
+              registerForm.get('password')?.errors?.['required'] &&
+              registerForm.get('password')?.touched
+            "
+            class="text-red-500"
+          >
+            Parola este obligatorie
+          </div>
+          <div
+            *ngIf="
+            registerForm.get('password')?.errors?.['minlength'] &&
+            registerForm.get('password')?.touched
+          "
+            class="text-red-500"
+          >
+            Parola trebuie sa aiba minim 6 caractere.
+          </div>
+        </div>
+        <div *ngIf="responseMsg !== ''" class="text-red-500">
+          {{ responseMsg }}
+        </div>
+        <div class="mt-12 flex justify-center text-lg text-black">
+          <button
+            [disabled]="!registerForm.valid"
+            type="submit"
+            class="rounded-3xl bg-yellow-400 bg-opacity-50 px-5 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600"
+          >
+            Register
+          </button>
+          <button
+            routerLink="/start"
+            type="button"
+            class="rounded-3xl bg-yellow-400 bg-opacity-50 px-5 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

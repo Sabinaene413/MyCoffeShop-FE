@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
 @Component({
@@ -9,7 +10,11 @@ import { initFlowbite } from 'flowbite';
 })
 export class AppComponent {
   title = 'MyCoffeShop';
+  constructor(private router: Router) {}
   ngOnInit(): void {
     initFlowbite();
+  }
+  isPublicPage(): boolean {
+    return this.router.url === '/start' || this.router.url === '/not-found' || this.router.url === '/register'; 
   }
 }

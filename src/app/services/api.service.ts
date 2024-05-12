@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Person, User } from '../features/users/users-models';
+import { LoginDto, Person, RegisterUser, User } from '../features/users/users-models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,8 +12,14 @@ export class ApiUserService {
   constructor(private http: HttpClient, private jwt: JwtHelperService) { }
 
 
-  login(loginInfo: any) {
+  login(loginInfo: LoginDto) {
     return this.http.post(this.baseUrl + '/Authentication/Login', loginInfo, {
+      responseType: 'json',
+    });
+  }
+
+  register(registerInfo: RegisterUser) {
+    return this.http.post(this.baseUrl + '/User/Register', registerInfo, {
       responseType: 'json',
     });
   }

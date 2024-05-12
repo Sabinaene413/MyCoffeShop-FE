@@ -4,7 +4,7 @@ export interface Employee extends LocationDto {
     id?: number;
     firstName: string;
     lastName: string;
-    file?: File;
+    filePath?: File;
     salaryNet?: number;
     salaryBrut?: number;
     taxes?: number;

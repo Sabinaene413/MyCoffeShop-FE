@@ -5,10 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ApiUserService } from '../../services/api.service';
+import { ApiUserService } from '../../../services/api.service';
 import { Router } from '@angular/router';
-import { ApiCoffeeShopService } from '../coffee-shops/api.service.coffee-shops';
-import { CoffeeShop } from '../coffee-shops/coffee-shop-models';
+import { ApiCoffeeShopService } from '../../coffee-shops/api.service.coffee-shops';
+import { CoffeeShop } from '../../coffee-shops/coffee-shop-models';
 
 @Component({
   selector: 'app-login',

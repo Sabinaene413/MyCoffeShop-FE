@@ -36,9 +36,15 @@
         >
           {{ employee.id }}
         </th>
-        <td class="px-6 py-4">
-          {{ employee.locationName }}
-        </td>
+        <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
+          <ng-container *ngIf="employee">
+          <img  class="w-10 h-10 rounded-full" [src]="'url(' + employee.filePath + ')'" alt="avatar">
+          <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+              <div class="text-base font-semibold text-gray-900 dark:text-white"> {{ employee.firstName }}  {{ employee.lastName }}</div>
+              <div class="text-sm font-normal text-gray-500 dark:text-gray-400">neil.sims@flowbite.com</div>
+          </div>
+          </ng-container>
+      </td>
         <td class="px-6 py-4">
           {{ employee.firstName }}
         </td>

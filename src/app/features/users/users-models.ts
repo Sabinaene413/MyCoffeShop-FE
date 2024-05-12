@@ -8,6 +8,18 @@ export interface User {
     locationName: string;
 }
 
+export interface RegisterUser {
+    firstName: string;
+    lastName: string;
+    email: string;
+    locationName: string;
+    password:string;
+}
+
+export interface LoginDto {
+    email: string;
+    password:string;
+}
 export interface Person {
     id: number;
     firstName: string;

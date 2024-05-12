@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/public/login/login.component';
 import { UsersComponent } from './features/users/users.component';
 import { ShopOrderFormComponent } from './features/shop-orders/form/shop-order.component';
 import { ShopOrdersListComponent } from './features/shop-orders/list/shop-order.component';
@@ -16,77 +16,103 @@ import { SaleOrderFormComponent } from './features/sale-orders/form/form.compone
 import { SaleOrdersListComponent } from './features/sale-orders/list/list.component';
 import { CoffeeShopFormComponent } from './features/coffee-shops/form/form.component';
 import { CoffeeShopsListComponent } from './features/coffee-shops/list/list.component';
-
+import { StartPageComponent } from './features/public/start-page/start-page.component';
+import { AuthGuard } from './services/guard';
+import { NotFoundComponent } from './features/public/not-found/not-found.component';
+import { RegisterComponent } from './features/public/register/register.component';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-shop-order',
-    component: ShopOrderFormComponent
+    component: ShopOrderFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'shop-orders',
-    component: ShopOrdersListComponent
+    component: ShopOrdersListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'inventories',
-    component: InventoriesListComponent
+    component: InventoriesListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-inventory',
-    component: InventoryFormComponent
+    component: InventoryFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-shopProduct',
-    component: ShopProductFormComponent
+    component: ShopProductFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'shop-products',
-    component: ShopProductsListComponent
+    component: ShopProductsListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-saleProduct',
-    component: SaleProductFormComponent
+    component: SaleProductFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'sale-products',
-    component: SaleProductsListComponent
+    component: SaleProductsListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-employee',
-    component: EmployeeFormComponent
+    component: EmployeeFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'employees',
-    component: EmployeesListComponent
+    component: EmployeesListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-sale-order',
-    component: SaleOrderFormComponent
+    component: SaleOrderFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'sale-orders',
-    component: SaleOrdersListComponent
+    component: SaleOrdersListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'add-coffeeShop',
-    component: CoffeeShopFormComponent
+    component: CoffeeShopFormComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'coffee-shops',
-    component: CoffeeShopsListComponent
+    component: CoffeeShopsListComponent,
+    canActivate: [AuthGuard],
   },
-]
+  {
+    path: 'start',
+    component: StartPageComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

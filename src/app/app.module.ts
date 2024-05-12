@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './features/navbar/navbar.component';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/public/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ApiUserService } from './services/api.service';
@@ -25,6 +25,9 @@ import { SaleOrdersListComponent } from './features/sale-orders/list/list.compon
 import { SaleOrderFormComponent } from './features/sale-orders/form/form.component';
 import { CoffeeShopFormComponent } from './features/coffee-shops/form/form.component';
 import { CoffeeShopsListComponent } from './features/coffee-shops/list/list.component';
+import { StartPageComponent } from './features/public/start-page/start-page.component';
+import { NotFoundComponent } from './features/public/not-found/not-found.component';
+import { RegisterComponent } from './features/public/register/register.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { CoffeeShopsListComponent } from './features/coffee-shops/list/list.comp
     SaleOrdersListComponent,
     SaleOrderFormComponent,
     CoffeeShopFormComponent,
-    CoffeeShopsListComponent
+    CoffeeShopsListComponent,
+    StartPageComponent,
+    RegisterComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
