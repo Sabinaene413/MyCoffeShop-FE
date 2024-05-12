@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiUserService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,9 @@ import { ApiUserService } from '../../services/api.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  constructor(public api: ApiUserService) {}
+  constructor(public api: ApiUserService,
+    private router: Router
+  ) {}
   logOut() {
     this.api.deleteToken();
   }
