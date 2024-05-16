@@ -67,6 +67,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'add-saleProduct/:id',
+    component: SaleProductFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'add-saleProduct',
     component: SaleProductFormComponent,
     canActivate: [AuthGuard],

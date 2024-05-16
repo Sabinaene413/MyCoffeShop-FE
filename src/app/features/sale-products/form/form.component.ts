@@ -6,41 +6,44 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiSaleProductService } from '../api.service.sale-products';
 import { SaleProduct } from 'src/app/features/sale-products/sale-product-models';
+import { BaseFormComponent } from 'src/app/shared/base-form';
 
 @Component({
   selector: 'app-saleProduct',
   templateUrl: './form.component.html',
 })
-export class SaleProductFormComponent implements OnInit {
-  saleProductForm!: FormGroup;
+export class SaleProductFormComponent
+  extends BaseFormComponent<SaleProduct>
+  implements OnInit
+{
   responseMsg: string = '';
 
   constructor(
-    private formBuilder: FormBuilder,
-    private api: ApiSaleProductService,
-    private router: Router
+    public override api: ApiSaleProductService,
+    public override router: Router,
+    public override route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {
-    this.saleProductForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      description: [''],
+    super(api, router, route);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  initializeFormGroup(data: SaleProduct | undefined = undefined) {
+    this.formGroup = this.formBuilder.group({
+      id: [data?.id, [Validators.required]],
+      name: [data?.name ?? '', [Validators.required]],
+      price: [data?.price ?? '', [Validators.required]],
+      description: [data?.description ?? ''],
     });
   }
 
-  ngOnInit(): void {}
-
-  addProduct() {
-    let productData: SaleProduct = {
-      name: this.saleProductForm.get('name')?.value,
-      price: this.saleProductForm.get('price')?.value,
-      description: this.saleProductForm.get('description')?.value,
-    };
-
-    this.api.saveProduct(productData).subscribe((response) => {
-      console.log('Product added successfully:', response);
-    });
+  override afterSave() {
+    this.router.navigate(['/sale-products']);
   }
 }

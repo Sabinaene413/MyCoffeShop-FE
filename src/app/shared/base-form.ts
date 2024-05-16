@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AbstractApiService } from './base-api.service';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export abstract class BaseFormComponent<DTO> implements OnInit {
   constructor(
     public api: AbstractApiService<DTO>,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
