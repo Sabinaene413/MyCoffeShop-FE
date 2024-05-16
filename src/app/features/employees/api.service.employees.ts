@@ -15,8 +15,18 @@ export class ApiEmployeeService {
     return this.http.post<Employee[]>(this.baseUrl + '/Filter', {});
   }
 
-  saveEmployee(Employee: FormData): Observable<Employee> {
+  addEmployee(Employee: FormData): Observable<Employee> {
     return this.http.post<Employee>(this.baseUrl + '/Create', Employee, {
+    });
+  }
+  
+  updateEmployee(Employee: FormData): Observable<Employee> {
+    return this.http.put<Employee>(this.baseUrl + '/Update', Employee, {
+    });
+  }
+
+  getById(Id: number): Observable<Employee>{
+    return this.http.post<Employee>(this.baseUrl + '/GetById', {Id: Id}, {
     });
   }
 }

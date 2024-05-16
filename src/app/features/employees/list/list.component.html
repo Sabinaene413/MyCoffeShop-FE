@@ -16,6 +16,7 @@
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
     >
       <tr>
+        <th scope="col" class="px-6 py-3">Edit</th>
         <th scope="col" class="px-6 py-3">Id</th>
         <th scope="col" class="px-6 py-3">Poza</th>
         <th scope="col" class="px-6 py-3">Nume</th>
@@ -30,6 +31,24 @@
         *ngFor="let employee of employees"
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
       >
+        <td class="px-6 py-4">
+          <a [routerLink]="['/add-employee', employee.id]">
+            <svg
+              class="w-6 h-6 text-gray-500 hover:text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.232 5.232l3.536 3.536M9 13l6-6M4 20h16M4 20a1 1 0 011-1h14a1 1 0 011 1M4 20l-1 1m17-1l1 1"
+              ></path>
+            </svg>
+          </a>
+        </td>
         <th
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -38,13 +57,17 @@
         </th>
         <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
           <ng-container *ngIf="employee">
-          <img  class="w-10 h-10 rounded-full" [src]="getProfilePhoto(employee)" alt="avatar">
-          <!-- <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <img
+              class="w-10 h-10 rounded-full"
+              [src]="getProfilePhoto(employee)"
+              alt="avatar"
+            />
+            <!-- <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
               <div class="text-base font-semibold text-gray-900 dark:text-white"> {{ employee.firstName }}  {{ employee.lastName }}</div>
               <div class="text-sm font-normal text-gray-500 dark:text-gray-400">neil.sims@flowbite.com</div>
           </div> -->
           </ng-container>
-      </td>
+        </td>
         <td class="px-6 py-4">
           {{ employee.firstName }}
         </td>

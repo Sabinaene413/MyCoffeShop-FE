@@ -72,6 +72,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'add-employee/:id',
+    component: EmployeeFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'add-employee',
     component: EmployeeFormComponent,
     canActivate: [AuthGuard],

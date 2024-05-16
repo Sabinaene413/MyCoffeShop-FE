@@ -1,14 +1,18 @@
 <div class="flex-row justify-center">
-  <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+  <form
+    *ngIf="employeeForm"
+    [formGroup]="employeeForm"
+    (ngSubmit)="saveEmployee()"
+  >
     <div class="flex justify-end">
-    <button
-      type="submit"
-      [disabled]="!employeeForm.valid"
-      class="text-white bg-gradient-to-r from-latte-300 via-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center me-2 mb-2"
-    >
-      Adauga angajat
-    </button>
-  </div>
+      <button
+        type="submit"
+        [disabled]="!employeeForm.valid"
+        class="text-white bg-gradient-to-r from-latte-300 via-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center me-2 mb-2"
+      >
+        Adauga angajat
+      </button>
+    </div>
 
     <div class="grid gap-6 mb-6 md:grid-cols-2">
       <div>
@@ -87,16 +91,25 @@
       <div>
         <label
           for="file"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 mr-4 text-sm font-medium text-gray-900 dark:text-white"
           >Fotografie angajat</label
         >
-        <input
-          formControlName="file"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          id="file"
-          type="file"
-          (change)="onChange($event)"
-        />
+        <div class="flex items-center">
+          <ng-container *ngIf="employeePhoto">
+            <img
+              class="w-10 h-10 rounded-full mr-4"
+              [src]="employeePhoto"
+              alt="avatar"
+            />
+          </ng-container>
+          <input
+            formControlName="file"
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="file"
+            type="file"
+            (change)="onChange($event)"
+          />
+        </div>
       </div>
     </div>
   </form>
