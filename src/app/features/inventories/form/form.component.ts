@@ -33,7 +33,7 @@ export class InventoryFormComponent implements OnInit {
       products: this.formBuilder.array([]),
     });
 
-    this.apiProducts.getAllProducts().subscribe((data: any) => {
+    this.apiProducts.getAll().subscribe((data: any) => {
       this.productOptions = data;
     });
   }

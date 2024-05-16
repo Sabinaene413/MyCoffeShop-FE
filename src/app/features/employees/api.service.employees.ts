@@ -3,30 +3,16 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { Employee } from './employee-models';
+import { AbstractApiService } from 'src/app/shared/base-api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiEmployeeService {
-  baseUrl = 'http://localhost:7015/api/Employee';
-  constructor(private http: HttpClient, private jwt: JwtHelperService) {}
-
-  getAllEmployees(): Observable<Employee[]> {
-    return this.http.post<Employee[]>(this.baseUrl + '/Filter', {});
+export class ApiEmployeeService extends AbstractApiService<Employee> {
+  controllerUrl = 'Employee';
+  constructor(http: HttpClient, jwt: JwtHelperService) {
+    super(http, jwt);
+    this.initUrl(this.controllerUrl);
   }
 
-  addEmployee(Employee: FormData): Observable<Employee> {
-    return this.http.post<Employee>(this.baseUrl + '/Create', Employee, {
-    });
-  }
-  
-  updateEmployee(Employee: FormData): Observable<Employee> {
-    return this.http.put<Employee>(this.baseUrl + '/Update', Employee, {
-    });
-  }
-
-  getById(Id: number): Observable<Employee>{
-    return this.http.post<Employee>(this.baseUrl + '/GetById', {Id: Id}, {
-    });
-  }
 }

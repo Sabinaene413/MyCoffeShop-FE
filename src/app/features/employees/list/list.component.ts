@@ -13,7 +13,7 @@ export class EmployeesListComponent {
   constructor(private api: ApiEmployeeService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.api.getAllEmployees().subscribe({
+    this.api.getAll().subscribe({
       next: (res: Employee[]) => {
         this.employees = res;
       },

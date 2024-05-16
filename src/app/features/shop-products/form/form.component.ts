@@ -39,7 +39,7 @@ export class ShopProductFormComponent implements OnInit {
       description: this.shopProductForm.get('description')?.value,
     };
 
-    this.api.saveProduct(productData).subscribe((response) => {
+    this.api.add(productData).subscribe((response) => {
       console.log('Product added successfully:', response);
     });
   }

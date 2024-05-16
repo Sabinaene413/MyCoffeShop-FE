@@ -57,6 +57,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'add-shopProduct/:id',
+    component: ShopProductFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'shop-products',
     component: ShopProductsListComponent,
     canActivate: [AuthGuard],

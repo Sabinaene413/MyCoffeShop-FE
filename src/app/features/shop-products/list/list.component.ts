@@ -12,7 +12,7 @@ export class ShopProductsListComponent {
   constructor(private api: ApiShopProductService) {}
 
   ngOnInit(): void {
-    this.api.getAllProducts().subscribe({
+    this.api.getAll().subscribe({
       next: (res: ShopProduct[]) => {
         this.shopProducts = res;
       },

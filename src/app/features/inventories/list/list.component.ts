@@ -18,7 +18,7 @@ export class InventoriesListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.apiProduct.getAllProducts().subscribe({
+    this.apiProduct.getAll().subscribe({
       next: (res: ShopProduct[]) => {
         this.shopProducts = res.reduce((acc: any, curr) => {
           acc[curr.id ?? '0'] = curr.name;

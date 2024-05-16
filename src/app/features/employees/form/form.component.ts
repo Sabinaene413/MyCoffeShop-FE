@@ -1,57 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee-models';
 import { ApiEmployeeService } from '../api.service.employees';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AbstractApiService } from 'src/app/shared/base-api.service';
+import { BaseFormComponent } from 'src/app/shared/base-form';
 
 @Component({
   selector: 'app-employee',
   templateUrl: './form.component.html',
 })
-export class EmployeeFormComponent implements OnInit {
+export class EmployeeFormComponent
+  extends BaseFormComponent<Employee>
+  implements OnInit
+{
   employeeForm!: FormGroup;
   responseMsg: string = '';
   fileToUpload!: File | null;
-  isEditMode: boolean = false;
-  employeeId: number | undefined;
   employeePhoto: SafeUrl | undefined;
 
   constructor(
+    public override api: ApiEmployeeService,
+    public override router: Router,
+    public override route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private api: ApiEmployeeService,
-    private router: Router,
-    private route: ActivatedRoute,
     private sanitizer: DomSanitizer
   ) {
-
+    super(api, router, route);
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.employeeId = +id;
-        this.isEditMode = true;
-        // Fetch employee data and populate form for editing
-        this.api.getById(this.employeeId).subscribe((employee) => {
-          this.initializeFormGroup(employee);
-          this.employeePhoto = this.getProfilePhoto(employee);
-        });
-      }
-      else
-      this.initializeFormGroup();
-    });
-
+  override ngOnInit(): void {
+    super.ngOnInit();
   }
 
-  initializeFormGroup(data: Employee | undefined = undefined)
-  {
+  initializeFormGroup(data: Employee | undefined = undefined) {
     this.employeeForm = this.formBuilder.group({
       id: [data?.id ?? '', [Validators.required]],
       firstName: [data?.firstName ?? '', [Validators.required]],
@@ -62,6 +45,8 @@ export class EmployeeFormComponent implements OnInit {
       salaryNet: [data?.salaryNet ?? 0],
       taxes: [data?.taxes ?? 0],
     });
+
+    if (data) this.employeePhoto = this.getProfilePhoto(data);
   }
   onChange($event: any) {
     if ($event?.target?.files !== undefined && $event?.target?.files !== null)
@@ -90,17 +75,17 @@ export class EmployeeFormComponent implements OnInit {
     formData.append('SalaryNet', employeeData.salaryNet);
     formData.append('Taxes', employeeData.taxes);
 
-    if (this.isEditMode && this.employeeId) {
+    if (this.isEditMode && this.entityId) {
       // Update existing employee
-      formData.append('Id', this.employeeId.toString());
-      this.api.updateEmployee(formData).subscribe((response) => {
+      formData.append('Id', this.entityId.toString());
+      this.api.updateFormData(formData).subscribe((response) => {
         console.log('Employee updated successfully:', response);
         // Redirect to employee list page after update
         this.router.navigate(['/employees']);
       });
     } else {
       // Add new employee
-      this.api.addEmployee(formData).subscribe((response) => {
+      this.api.addFormData(formData).subscribe((response) => {
         console.log('Employee added successfully:', response);
         // Redirect to employee list page after addition
         this.router.navigate(['/employees']);
@@ -109,6 +94,8 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   getProfilePhoto(employee: Employee): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(`data:${employee.profilePhotoContentType};base64,${employee.profilePhoto}`);
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `data:${employee.profilePhotoContentType};base64,${employee.profilePhoto}`
+    );
   }
 }
