@@ -4,17 +4,32 @@
     [formGroup]="employeeForm"
     (ngSubmit)="saveEmployee()"
   >
-    <div class="flex justify-end">
-      <button
-        type="submit"
-        [disabled]="!employeeForm.valid"
-        class="text-white bg-gradient-to-r from-latte-300 via-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center me-2 mb-2"
-      >
-        Adauga angajat
-      </button>
-    </div>
 
-    <div class="grid gap-6 mb-6 md:grid-cols-2">
+  <h1 class="mb-6 mx-9 mt-8 text-xl font-medium text-gray-900">{{this.entityId === undefined ? 'Adauga angajat nou' : 'Actualizeaza angajat'}}</h1>
+    <div class="mb-6 mx-9">
+      <label
+        for="file"
+        class="block mb-2 mr-4 text-sm font-medium text-gray-900 dark:text-white"
+        >Fotografie angajat</label
+      >
+      <div class="flex items-center">
+        <ng-container *ngIf="employeePhoto">
+          <img
+            class="w-10 h-10 rounded-full mr-4"
+            [src]="employeePhoto"
+            alt="avatar"
+          />
+        </ng-container>
+        <input
+          formControlName="file"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          id="file"
+          type="file"
+          (change)="onChange($event)"
+        />
+      </div>
+    </div>
+    <div class="grid gap-6 mb-10 md:grid-cols-2  mx-9">
       <div>
         <label
           for="firstName"
@@ -45,6 +60,9 @@
           required
         />
       </div>
+      </div>
+      <h1 class="mb-6 mx-9 text-lg font-medium text-gray-900">Financiar</h1>
+      <div class="grid gap-6 mb-6 md:grid-cols-3  mx-9">
       <div>
         <label
           for="salaryNet"
@@ -88,29 +106,23 @@
         />
       </div>
 
-      <div>
-        <label
-          for="file"
-          class="block mb-2 mr-4 text-sm font-medium text-gray-900 dark:text-white"
-          >Fotografie angajat</label
-        >
-        <div class="flex items-center">
-          <ng-container *ngIf="employeePhoto">
-            <img
-              class="w-10 h-10 rounded-full mr-4"
-              [src]="employeePhoto"
-              alt="avatar"
-            />
-          </ng-container>
-          <input
-            formControlName="file"
-            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            id="file"
-            type="file"
-            (change)="onChange($event)"
-          />
-        </div>
-      </div>
+    </div>
+    <div class="flex justify-start">
+      <button *ngIf="employeeForm.valid"
+        type="submit"
+        [disabled]="!employeeForm.valid"
+        class="text-white bg-gradient-to-r from-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center mx-9 mb-2"
+      >
+        Salveaza
+      </button>
+      <button *ngIf="!employeeForm.valid"
+      type="submit"
+      [disabled]="!employeeForm.valid"
+      class="text-white bg-gray-500 cursor-not-allowed font-medium rounded-lg text-lg px-6 py-3 text-center mx-9 mb-2" disabled
+    >
+      Salveaza
+    </button>
+    
     </div>
   </form>
 </div>

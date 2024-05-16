@@ -32,6 +32,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'add-shop-order/:id',
+    component: ShopOrderFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'add-shop-order',
     component: ShopOrderFormComponent,
     canActivate: [AuthGuard],

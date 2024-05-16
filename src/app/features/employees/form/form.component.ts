@@ -36,7 +36,7 @@ export class EmployeeFormComponent
 
   initializeFormGroup(data: Employee | undefined = undefined) {
     this.employeeForm = this.formBuilder.group({
-      id: [data?.id ?? '', [Validators.required]],
+      id: [data?.id ?? ''],
       firstName: [data?.firstName ?? '', [Validators.required]],
       lastName: [data?.lastName ?? '', [Validators.required]],
       file: [null],

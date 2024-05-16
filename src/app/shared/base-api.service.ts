@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export abstract class AbstractApiService<DTO> {
   abstract controllerUrl:string;
   baseUrl = 'http://localhost:7015/api/';
-  constructor(private http: HttpClient, private jwt: JwtHelperService) {}
+  constructor(public http: HttpClient, private jwt: JwtHelperService) {}
 
    public initUrl(controllerUrl: string) {
     this.baseUrl += controllerUrl;

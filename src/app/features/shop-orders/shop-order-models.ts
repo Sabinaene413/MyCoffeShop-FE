@@ -7,12 +7,14 @@ export interface ShopOrder extends LocationDto{
     orderDate: Date;
     arrivalDate: Date;
     received: boolean;
-    products: ShopProductOrder[];
+    shopOrderProducts: ShopProductOrder[];
 }
 
 export interface ShopProductOrder {
+    id?:number;
     shopProductId: number;
-    shopOrderId: number;
+    shopOrderId?: number;
     quantity: number;
     cost: number;
+    price: number;
 }

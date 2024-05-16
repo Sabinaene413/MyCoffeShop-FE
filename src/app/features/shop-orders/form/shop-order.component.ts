@@ -6,75 +6,113 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiShopOrderService } from '../api.service.shop-orders';
 import { ShopProduct } from 'src/app/features/shop-products/shop-product-models';
+import { ShopOrder, ShopProductOrder } from '../shop-order-models';
+import { BaseFormComponent } from 'src/app/shared/base-form';
+import { ApiShopProductService } from '../../shop-products/api.service.shop-products';
 
 @Component({
   selector: 'app-shopOrder',
   templateUrl: './shop-order.component.html',
 })
-export class ShopOrderFormComponent implements OnInit {
-  shopOrderForm!: FormGroup;
-  productForm!: FormGroup;
+export class ShopOrderFormComponent
+  extends BaseFormComponent<ShopOrder>
+  implements OnInit
+{
   responseMsg: string = '';
+  productForm!: FormGroup;
   totalCost: number = 0;
   productOptions: ShopProduct[] = [];
 
   constructor(
+    public override api: ApiShopOrderService,
+    public override router: Router,
+    public override route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private api: ApiShopOrderService,
-    private router: Router
+    private apiProduct: ApiShopProductService
   ) {
-    this.shopOrderForm = this.formBuilder.group({
-      supplier: ['', [Validators.required]],
-      arrivalDate: [''],
-      cost: [''],
-    });
-    this.productForm = this.formBuilder.group({
-      products: this.formBuilder.array([]),
-    });
+    super(api, router, route);
+  }
 
-    this.api.getAllProducts().subscribe((data: any) => {
+  override ngOnInit(): void {
+    this.apiProduct.getAll().subscribe((data: any) => {
       this.productOptions = data;
     });
+
+    super.ngOnInit();
   }
 
-  ngOnInit(): void {}
-  get products() {
-    return this.productForm.get('products') as FormArray;
+  initializeFormGroup(data: ShopOrder | undefined = undefined) {
+    this.formGroup = this.formBuilder.group({
+      id: [data?.id, [Validators.required]],
+      supplier: [data?.supplier ?? '', [Validators.required]],
+      arrivalDate: [data?.arrivalDate ?? ''],
+      cost: [data?.cost ?? ''],
+    });
+
+    this.productForm = this.formBuilder.group({
+      shopOrderProducts: this.formBuilder.array([]),
+    });
+    if (data?.shopOrderProducts) {
+      data.shopOrderProducts.forEach((product: ShopProductOrder) => {
+        this.addProduct(product);
+      });
+      this.calculateTotalCost();
+    }
   }
 
-  addProduct() {
+  get shopOrderProducts() {
+    return this.productForm.get('shopOrderProducts') as FormArray;
+  }
+
+  addProduct(productAdded: ShopProductOrder | undefined = undefined) {
     let product = this.formBuilder.group({
-      productId: ['', Validators.required],
-      price: [''],
-      quantity: ['', Validators.required],
+      id: [productAdded?.shopOrderId ?? null],
+      shopOrderId: [productAdded?.shopOrderId ?? null, Validators.required],
+      shopProductId: [productAdded?.shopProductId ?? '', Validators.required],
+      price: [productAdded?.price ?? ''],
+      quantity: [productAdded?.quantity ?? '', Validators.required],
+      cost: ['']
     });
 
-    product.valueChanges.subscribe((productModified: any) => {
-      const selectedProduct = this.productOptions.find(
-        (product) =>
-          product.id?.toString() === productModified.productId.toString()
-      );
-      if (selectedProduct) {
-        product.get('price')?.setValue(selectedProduct.price.toString());
-        this.calculateTotalCost();
-      }
-    });
-
-    this.products.push(product);
+    this.shopOrderProducts.push(product);
   }
 
   deleteProduct(index: number) {
-    this.products.removeAt(index);
+    this.shopOrderProducts.removeAt(index);
     this.calculateTotalCost();
   }
 
-  addOrder() {
-    const mappedProducts = this.products.value.map((product: any) => {
+  calculateTotalCost() {
+    let totalCost = 0;
+    this.shopOrderProducts.value.forEach((product: any) => {
+      const price = parseFloat(product.price);
+      const quantity = parseInt(product.quantity);
+      totalCost += price * quantity;
+    });
+    this.totalCost = totalCost;
+  }
+
+  shopOrder() {
+    let shopOrderInfo = {
+      supplier: this.formGroup.get('supplier')?.value,
+      arrivalDate: this.formGroup.get('arrivalDate')?.value,
+    };
+  }
+
+  override afterSave() {
+    this.router.navigate(['/shop-orders']);
+  }
+
+  override mapToSaveData() {
+
+    const mappedProducts = this.shopOrderProducts.value.map((product: any) => {
       return {
-        shopProductId: product.productId,
+        id: product.id,
+        shopOrderId: product.shopOrderId,
+        shopProductId: product.shopProductId,
         price: product.price as number,
         quantity: product.quantity,
         cost: (product.price as number) * (product.quantity as number),
@@ -82,32 +120,16 @@ export class ShopOrderFormComponent implements OnInit {
     });
 
     let orderData: any = {
-      supplier: this.shopOrderForm.get('supplier')?.value,
-      arrivalDate: this.shopOrderForm.get('arrivalDate')?.value,
+      id: this.formGroup.get('id')?.value,
+      supplier: this.formGroup.get('supplier')?.value,
+      arrivalDate: this.formGroup.get('arrivalDate')?.value,
       orderDate: new Date(),
       received: false,
       cost: this.totalCost,
       shopOrderProducts: mappedProducts,
     };
 
-    this.api.saveOrder(orderData).subscribe((response) => {
-      console.log('Order added successfully:', response);
-    });
+    this.saveData = orderData;
   }
 
-  calculateTotalCost() {
-    let totalCost = 0;
-    this.products.value.forEach((product: any) => {
-      const price = parseFloat(product.price);
-      const quantity = parseInt(product.quantity);
-      totalCost += price * quantity;
-    });
-    this.totalCost = totalCost;
-  }
-  shopOrder() {
-    let shopOrderInfo = {
-      supplier: this.shopOrderForm.get('supplier')?.value,
-      arrivalDate: this.shopOrderForm.get('arrivalDate')?.value,
-    };
-  }
 }
