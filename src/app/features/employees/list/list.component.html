@@ -17,7 +17,7 @@
     >
       <tr>
         <th scope="col" class="px-6 py-3">Id</th>
-        <th scope="col" class="px-6 py-3">Nume Locație</th>
+        <th scope="col" class="px-6 py-3">Poza</th>
         <th scope="col" class="px-6 py-3">Nume</th>
         <th scope="col" class="px-6 py-3">Prenume</th>
         <th scope="col" class="px-6 py-3">Salariu Net</th>
@@ -38,11 +38,11 @@
         </th>
         <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
           <ng-container *ngIf="employee">
-          <img  class="w-10 h-10 rounded-full" [src]="'url(' + employee.filePath + ')'" alt="avatar">
-          <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+          <img  class="w-10 h-10 rounded-full" [src]="getProfilePhoto(employee)" alt="avatar">
+          <!-- <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
               <div class="text-base font-semibold text-gray-900 dark:text-white"> {{ employee.firstName }}  {{ employee.lastName }}</div>
               <div class="text-sm font-normal text-gray-500 dark:text-gray-400">neil.sims@flowbite.com</div>
-          </div>
+          </div> -->
           </ng-container>
       </td>
         <td class="px-6 py-4">
