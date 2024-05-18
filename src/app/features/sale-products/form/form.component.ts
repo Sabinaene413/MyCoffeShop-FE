@@ -34,7 +34,7 @@ export class SaleProductFormComponent
     super.ngOnInit();
   }
 
-  initializeFormGroup(data: SaleProduct | undefined = undefined) {
+  override initializeFormGroup(data: SaleProduct | undefined = undefined) {
     this.formGroup = this.formBuilder.group({
       id: [data?.id, [Validators.required]],
       name: [data?.name ?? '', [Validators.required]],

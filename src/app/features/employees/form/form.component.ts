@@ -34,7 +34,7 @@ export class EmployeeFormComponent
     super.ngOnInit();
   }
 
-  initializeFormGroup(data: Employee | undefined = undefined) {
+  override initializeFormGroup(data: Employee | undefined = undefined) {
     this.employeeForm = this.formBuilder.group({
       id: [data?.id ?? ''],
       firstName: [data?.firstName ?? '', [Validators.required]],

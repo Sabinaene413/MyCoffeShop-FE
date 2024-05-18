@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class BaseFormComponent<DTO> implements OnInit {
+export class BaseFormComponent<DTO> implements OnInit {
   public data!: any;
   public saveData!: any;
   public formGroup!: FormGroup;
@@ -18,6 +18,9 @@ export abstract class BaseFormComponent<DTO> implements OnInit {
     public route: ActivatedRoute,
   ) {}
 
+  convertToDate(dateTimeString: string): string {
+    return dateTimeString.split('T')[0];
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
@@ -33,7 +36,7 @@ export abstract class BaseFormComponent<DTO> implements OnInit {
     });
   }
 
-  mapToSaveData<DTO>() {
+  async mapToSaveData<DTO>() {
     this.saveData = this.getFormData<DTO>(this.formGroup);
   }
 
@@ -45,8 +48,8 @@ export abstract class BaseFormComponent<DTO> implements OnInit {
     return formData as DTO;
   }
 
-  public save() {
-    this.mapToSaveData();
+  public async save() {
+    await this.mapToSaveData();
     if (this.entityId) {
       this.api.update(this.saveData).subscribe((response) => {
         this.afterSave();
@@ -62,5 +65,5 @@ export abstract class BaseFormComponent<DTO> implements OnInit {
 
   afterSave() {}
 
-  abstract initializeFormGroup(data: DTO | undefined): void;
+   initializeFormGroup(data: DTO | undefined): void{};
 }

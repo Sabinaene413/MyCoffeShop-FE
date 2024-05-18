@@ -20,22 +20,22 @@ export abstract class AbstractApiService<DTO> {
   }
 
   addFormData(DTO: FormData): Observable<DTO> {
-    return this.http.post<DTO>(this.baseUrl + '/Create', DTO, {});
+    return this.http.post<DTO>(this.baseUrl + '/Create', DTO);
   }
 
   updateFormData(DTO: FormData): Observable<DTO> {
-    return this.http.put<DTO>(this.baseUrl + '/Update', DTO, {});
+    return this.http.put<DTO>(this.baseUrl + '/Update', DTO);
   }
 
   add(DTO: DTO): Observable<DTO> {
-    return this.http.post<DTO>(this.baseUrl + '/Create', DTO, {});
+    return this.http.post<DTO>(this.baseUrl + '/Create', DTO);
   }
 
   update(DTO: DTO): Observable<DTO> {
-    return this.http.put<DTO>(this.baseUrl + '/Update', DTO, {});
+    return this.http.put<DTO>(this.baseUrl + '/Update', DTO);
   }
 
   getById(Id: number): Observable<DTO> {
-    return this.http.post<DTO>(this.baseUrl + '/GetById', { Id: Id }, {});
+    return this.http.post<DTO>(this.baseUrl + '/GetById', { Id: Id });
   }
 }

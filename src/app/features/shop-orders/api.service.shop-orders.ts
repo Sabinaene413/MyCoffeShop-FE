@@ -18,7 +18,7 @@ export class ApiShopOrderService extends AbstractApiService<ShopOrder> {
 
   markOrderReceived(id: number): Observable<ShopOrder> {
     return this.http.post<ShopOrder>(
-      this.baseUrl + '/ShopOrder/MarkOrderReceived',
+      this.baseUrl + '/MarkOrderReceived',
       { Id: id }
     );
   }

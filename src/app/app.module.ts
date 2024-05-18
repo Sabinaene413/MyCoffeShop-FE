@@ -51,7 +51,7 @@ import { RegisterComponent } from './features/public/register/register.component
     CoffeeShopsListComponent,
     StartPageComponent,
     RegisterComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
