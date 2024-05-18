@@ -1,0 +1,52 @@
+<!-- <div class="flex justify-end mb-4">
+  <a
+    href="/add-shopProduct"
+    class="text-white bg-gradient-to-r from-latte-300 via-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2"
+  >
+    Adaugă produs magazin nou
+  </a>
+</div> -->
+
+<div class="relative overflow-x-auto">
+  <table
+    #grid
+    class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">Id</th>
+        <th scope="col" class="px-6 py-3">Descriere</th>
+        <th scope="col" class="px-6 py-3">Total</th>
+        <th scope="col" class="px-6 py-3">Tip Tranzactie</th>
+        <th scope="col" class="px-6 py-3">Data Transactie</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let transaction of transactions"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          {{ transaction.id }}
+        </th>
+        <td class="px-6 py-4">
+          {{ transaction.description }}
+        </td>
+        <td class="px-6 py-4">
+          {{ transaction.totalAmount }} LEI
+        </td>
+        <td class="px-6 py-4">
+          {{ transaction.transactionTypeId == 2 ? 'OUT' : 'IN'}}
+        </td>
+        <td class="px-6 py-4">
+          {{ transaction.transactionDate }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

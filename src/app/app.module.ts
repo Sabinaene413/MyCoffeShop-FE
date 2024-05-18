@@ -28,6 +28,7 @@ import { CoffeeShopsListComponent } from './features/coffee-shops/list/list.comp
 import { StartPageComponent } from './features/public/start-page/start-page.component';
 import { NotFoundComponent } from './features/public/not-found/not-found.component';
 import { RegisterComponent } from './features/public/register/register.component';
+import { TranscationsListComponent } from './features/transactions/list/list.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { RegisterComponent } from './features/public/register/register.component
     StartPageComponent,
     RegisterComponent,
     NotFoundComponent,
+    TranscationsListComponent
   ],
   imports: [
     BrowserModule,

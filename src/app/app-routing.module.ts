@@ -18,8 +18,8 @@ import { CoffeeShopFormComponent } from './features/coffee-shops/form/form.compo
 import { CoffeeShopsListComponent } from './features/coffee-shops/list/list.component';
 import { StartPageComponent } from './features/public/start-page/start-page.component';
 import { AuthGuard } from './services/guard';
-import { NotFoundComponent } from './features/public/not-found/not-found.component';
 import { RegisterComponent } from './features/public/register/register.component';
+import { TranscationsListComponent } from './features/transactions/list/list.component';
 
 const routes: Routes = [
   {
@@ -29,6 +29,11 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'transactions',
+    component: TranscationsListComponent,
     canActivate: [AuthGuard],
   },
   {
