@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { LoginDto, Person, RegisterUser, User } from '../features/users/users-models';
-import { Observable } from 'rxjs';
+import { LoginDto, RegisterEmployeeUser, RegisterUser, User } from '../features/users/users-models';
+import { AbstractApiService } from '../shared/base-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiUserService {
-  baseUrl = 'http://localhost:7015/api';
-  constructor(private http: HttpClient, private jwt: JwtHelperService) { }
-
+export class ApiUserService extends AbstractApiService<User> {
+  controllerUrl = 'User';
+  constructor(http: HttpClient, jwt: JwtHelperService) {
+    super(http, jwt);
+    this.initUrl(this.controllerUrl);
+  }
 
   login(loginInfo: LoginDto) {
-    return this.http.post(this.baseUrl + '/Authentication/Login', loginInfo, {
+    return this.http.post('http://localhost:7015/api/' + '/Authentication/Login', loginInfo, {
+      responseType: 'json',
+    });
+  }
+
+  employeeRegister(registerInfo: RegisterEmployeeUser) {
+    return this.http.post(this.baseUrl + '/EmployeeRegister', registerInfo, {
       responseType: 'json',
     });
   }
 
   register(registerInfo: RegisterUser) {
-    return this.http.post(this.baseUrl + '/User/Register', registerInfo, {
+    return this.http.post(this.baseUrl + '/Register', registerInfo, {
       responseType: 'json',
     });
   }
@@ -53,14 +61,4 @@ export class ApiUserService {
     };
     return user;
   }
-
-  getAllUsers(pageNumber: number, pageSize: number): Observable<User[]> {
-    const body = {
-      pageNumber: pageNumber,
-      pageSize: pageSize
-    };
-
-    return this.http.post<User[]>(this.baseUrl + '/User/Filter', body);
-  }
-
 }

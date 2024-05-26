@@ -9,8 +9,10 @@ export interface SaleOrder extends LocationDto {
 }
 
 export interface SaleProductOrder {
-    SaleProductId: number;
-    SaleOrderId: number;
+    id?:number;
+    saleProductId: number;
+    saleOrderId: number;
     quantity: number;
     cost: number;
+    price: number;
 }

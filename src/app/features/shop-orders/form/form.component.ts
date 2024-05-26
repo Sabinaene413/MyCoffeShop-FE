@@ -15,7 +15,7 @@ import { ApiShopProductService } from '../../shop-products/api.service.shop-prod
 
 @Component({
   selector: 'app-shopOrder',
-  templateUrl: './shop-order.component.html',
+  templateUrl: './form.component.html',
 })
 export class ShopOrderFormComponent
   extends BaseFormComponent<ShopOrder>
@@ -45,7 +45,7 @@ export class ShopOrderFormComponent
 
   override initializeFormGroup(data: ShopOrder | undefined = undefined) {
     this.formGroup = this.formBuilder.group({
-      id: [data?.id, [Validators.required]],
+      id: [data?.id],
       supplier: [data?.supplier ?? '', [Validators.required]],
       arrivalDate: [this.convertToDate(data?.arrivalDate?.toString() ?? '') ?? ''],
       cost: [data?.cost ?? ''],
@@ -93,13 +93,6 @@ export class ShopOrderFormComponent
       }
     });
     return totalCost;
-  }
-
-  shopOrder() {
-    let shopOrderInfo = {
-      supplier: this.formGroup.get('supplier')?.value,
-      arrivalDate: this.formGroup.get('arrivalDate')?.value,
-    };
   }
 
   override afterSave() {

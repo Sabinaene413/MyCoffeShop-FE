@@ -15,7 +15,7 @@ export class BaseFormComponent<DTO> implements OnInit {
   constructor(
     public api: AbstractApiService<DTO>,
     public router: Router,
-    public route: ActivatedRoute,
+    public route: ActivatedRoute
   ) {}
 
   convertToDate(dateTimeString: string): string {
@@ -29,6 +29,7 @@ export class BaseFormComponent<DTO> implements OnInit {
         this.isEditMode = true;
         // Fetch data and populate form for editing
         this.api.getById(this.entityId).subscribe((data) => {
+          console.log('Entity get successfully:', data);
           this.data = data;
           this.initializeFormGroup(this.data);
         });
@@ -58,12 +59,12 @@ export class BaseFormComponent<DTO> implements OnInit {
     } else {
       this.api.add(this.saveData).subscribe((response) => {
         this.afterSave();
-        console.log('Entity added successfully:', response);
+        console.log('Entity updated successfully:', response);
       });
     }
   }
 
   afterSave() {}
 
-   initializeFormGroup(data: DTO | undefined): void{};
+  initializeFormGroup(data: DTO | undefined): void {}
 }

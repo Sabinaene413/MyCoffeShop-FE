@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './features/public/login/login.component';
 import { UsersComponent } from './features/users/users.component';
-import { ShopOrderFormComponent } from './features/shop-orders/form/shop-order.component';
+import { ShopOrderFormComponent } from './features/shop-orders/form/form.component';
 import { ShopOrdersListComponent } from './features/shop-orders/list/shop-order.component';
 import { InventoriesListComponent } from './features/inventories/list/list.component';
 import { InventoryFormComponent } from './features/inventories/form/form.component';
@@ -58,6 +58,11 @@ const routes: Routes = [
   },
   {
     path: 'add-inventory',
+    component: InventoryFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-inventory/:id',
     component: InventoryFormComponent,
     canActivate: [AuthGuard],
   },

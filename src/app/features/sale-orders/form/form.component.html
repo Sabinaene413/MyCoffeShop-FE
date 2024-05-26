@@ -1,14 +1,14 @@
 <div class="flex-row justify-center">
   <div class="flex justify-end">
     <button
-      (click)="addOrder()"
+      (click)="save()"
       class="text-white bg-gradient-to-r from-latte-300 via-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center me-2 mb-2"
     >
-      Adauga comanda vanzare
+      {{ entityId === undefined ? "Adauga comanda" : "Actualizeaza comanda" }}
     </button>
   </div>
 
-  <form [formGroup]="saleOrderForm">
+  <form *ngIf="formGroup" [formGroup]="formGroup">
     <div class="grid gap-6 mb-6 md:grid-cols-2">
       <!-- <div>
         <label
@@ -28,7 +28,7 @@
       </div> -->
     </div>
   </form>
-  <form [formGroup]="productForm">
+  <form *ngIf="productForm" [formGroup]="productForm">
     <button
       type="button"
       (click)="addProduct()"
@@ -36,21 +36,21 @@
     >
       Adauga Produs
     </button>
-    <div formArrayName="products">
+    <div formArrayName="saleOrderProducts">
       <div
-        *ngFor="let product of products.controls; let i = index"
+        *ngFor="let product of saleOrderProducts.controls; let i = index"
         [formGroupName]="i"
         class="flex justify-evenly py-3"
       >
         <label
-          for="productId"
+          for="saleProductId"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Nume:
           <select
-            formControlName="productId"
+            formControlName="saleProductId"
             type="text"
-            id="productId"
+            id="saleProductId"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Produs"
             required
@@ -90,13 +90,16 @@
           />
         </label>
         <div class="w-20 pt-7">
-           {{product.get('price')?.value * product.get('quantity')?.value}} lei
-          </div>
+          {{ product.get("price")?.value * product.get("quantity")?.value }} lei
+        </div>
         <button type="button" (click)="deleteProduct(i)" class="text-lg">
           X
         </button>
       </div>
     </div>
   </form>
-  <hr><div class="flex justify-end"><div class="m-4">{{totalCost}} lei</div></div>
+  <hr />
+  <div class="flex justify-end">
+    <div class="m-4">{{ calculateTotalCost() }} lei</div>
+  </div>
 </div>

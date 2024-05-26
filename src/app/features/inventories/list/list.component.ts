@@ -27,7 +27,7 @@ export class InventoriesListComponent {
       },
       error: (err: any) => console.log(err),
     });
-    this.api.getInventories().subscribe({
+    this.api.getAll().subscribe({
       next: (res: Inventory[]) => {
         this.inventories = res;
       },

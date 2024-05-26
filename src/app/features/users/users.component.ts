@@ -11,7 +11,7 @@ export class UsersComponent {
   constructor(private api: ApiUserService) {}
 
   ngOnInit(): void {
-    this.api.getAllUsers(1, 15).subscribe({
+    this.api.getAll().subscribe({
       next: (res: User[]) => {
         this.users = res;
       },

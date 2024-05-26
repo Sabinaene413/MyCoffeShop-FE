@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './features/users/users.component';
 import { CommonModule } from '@angular/common';
 import { ShopOrdersListComponent } from './features/shop-orders/list/shop-order.component';
-import { ShopOrderFormComponent } from './features/shop-orders/form/shop-order.component';
+import { ShopOrderFormComponent } from './features/shop-orders/form/form.component';
 import { InventoriesListComponent } from './features/inventories/list/list.component';
 import { InventoryFormComponent } from './features/inventories/form/form.component';
 import { ShopProductFormComponent } from './features/shop-products/form/form.component';

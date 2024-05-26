@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee-models';
 import { ApiEmployeeService } from '../api.service.employees';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { AbstractApiService } from 'src/app/shared/base-api.service';
 import { BaseFormComponent } from 'src/app/shared/base-form';
+import { RegisterEmployeeUser, User } from '../../users/users-models';
+import { ApiUserService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-employee',
@@ -15,35 +16,52 @@ export class EmployeeFormComponent
   extends BaseFormComponent<Employee>
   implements OnInit
 {
-  employeeForm!: FormGroup;
   responseMsg: string = '';
+  userOptions: User[] = [];
+  employeeTypeOptions: any = [
+    { name: 'BARISTA', id: 1 },
+    { name: 'ASISTENT_MANAGER', id: 2 },
+  ];
   fileToUpload!: File | null;
   employeePhoto: SafeUrl | undefined;
+  registerForm!: FormGroup;
 
   constructor(
     public override api: ApiEmployeeService,
     public override router: Router,
     public override route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private apiUser: ApiUserService
   ) {
     super(api, router, route);
   }
 
   override ngOnInit(): void {
+    this.apiUser.getAll().subscribe((data: any) => {
+      this.userOptions = data;
+    });
+
     super.ngOnInit();
   }
 
   override initializeFormGroup(data: Employee | undefined = undefined) {
-    this.employeeForm = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       id: [data?.id ?? ''],
       firstName: [data?.firstName ?? '', [Validators.required]],
       lastName: [data?.lastName ?? '', [Validators.required]],
+      employeeTypeId: [data?.employeeTypeId ?? null, [Validators.required]],
+      userId: [data?.userId ?? null],
       file: [null],
       filePath: [data?.filePath ?? null],
       salaryBrut: [data?.salaryBrut ?? 0],
       salaryNet: [data?.salaryNet ?? 0],
       taxes: [data?.taxes ?? 0],
+    });
+
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     if (data) this.employeePhoto = this.getProfilePhoto(data);
@@ -53,14 +71,32 @@ export class EmployeeFormComponent
       this.fileToUpload = ($event?.target?.files as FileList).item(0);
   }
 
+  saveNewUser() {
+    const newUser: RegisterEmployeeUser = {
+      email: this.registerForm.get('email')?.value,
+      firstName: this.formGroup.get('firstName')?.value,
+      lastName: this.formGroup.get('lastName')?.value,
+      password: this.registerForm.get('password')?.value,
+    };
+
+    this.apiUser.employeeRegister(newUser).subscribe((data: any) => {
+      this.apiUser.getAll().subscribe((data: any) => {
+        this.userOptions = data;
+        this.formGroup.controls['userId'].setValue(data.id); //todo: nu merge nu se face refresh la valoare selectata in dropdown
+      });
+    });
+  }
+
   saveEmployee() {
     const employeeData: any = {
-      firstName: this.employeeForm.get('firstName')?.value,
-      lastName: this.employeeForm.get('lastName')?.value,
+      firstName: this.formGroup.get('firstName')?.value,
+      lastName: this.formGroup.get('lastName')?.value,
+      employeeTypeId: this.formGroup.get('employeeTypeId')?.value,
+      userId: this.formGroup.get('userId')?.value,
       file: null,
-      salaryBrut: this.employeeForm.get('salaryBrut')?.value,
-      salaryNet: this.employeeForm.get('salaryNet')?.value,
-      taxes: this.employeeForm.get('taxes')?.value,
+      salaryBrut: this.formGroup.get('salaryBrut')?.value,
+      salaryNet: this.formGroup.get('salaryNet')?.value,
+      taxes: this.formGroup.get('taxes')?.value,
     };
 
     if (this.fileToUpload !== null && this.fileToUpload !== undefined)
@@ -70,7 +106,8 @@ export class EmployeeFormComponent
     formData.append('FirstName', employeeData.firstName);
     formData.append('LastName', employeeData.lastName);
     formData.append('File', employeeData.file);
-    formData.append('File', employeeData.file);
+    formData.append('EmployeeTypeId', employeeData.employeeTypeId);
+    formData.append('UserId', employeeData.userId);
     formData.append('SalaryBrut', employeeData.salaryBrut);
     formData.append('SalaryNet', employeeData.salaryNet);
     formData.append('Taxes', employeeData.taxes);

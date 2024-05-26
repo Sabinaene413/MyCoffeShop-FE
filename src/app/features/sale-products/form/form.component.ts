@@ -36,7 +36,7 @@ export class SaleProductFormComponent
 
   override initializeFormGroup(data: SaleProduct | undefined = undefined) {
     this.formGroup = this.formBuilder.group({
-      id: [data?.id, [Validators.required]],
+      id: [data?.id],
       name: [data?.name ?? '', [Validators.required]],
       price: [data?.price ?? '', [Validators.required]],
       description: [data?.description ?? ''],

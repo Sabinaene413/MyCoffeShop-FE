@@ -6,104 +6,123 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiSaleOrderService } from '../api.service.sale-orders';
 import { SaleProduct } from 'src/app/features/sale-products/sale-product-models';
+import { SaleOrder, SaleProductOrder } from '../sale-order-models';
+import { BaseFormComponent } from 'src/app/shared/base-form';
+import { ApiSaleProductService } from '../../sale-products/api.service.sale-products';
 
 @Component({
   selector: 'app-saleOrder',
   templateUrl: './form.component.html',
 })
-export class SaleOrderFormComponent implements OnInit {
-  saleOrderForm!: FormGroup;
-  productForm!: FormGroup;
+export class SaleOrderFormComponent
+  extends BaseFormComponent<SaleOrder>
+  implements OnInit
+{
   responseMsg: string = '';
-  totalCost: number = 0;
+  productForm!: FormGroup;
   productOptions: SaleProduct[] = [];
 
   constructor(
+    public override api: ApiSaleOrderService,
+    public override router: Router,
+    public override route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private api: ApiSaleOrderService,
-    private router: Router
+    private apiProduct: ApiSaleProductService
   ) {
-    this.saleOrderForm = this.formBuilder.group({
-      cost: [''],
-    });
-    this.productForm = this.formBuilder.group({
-      products: this.formBuilder.array([]),
-    });
+    super(api, router, route);
+  }
 
-    this.api.getAllProducts().subscribe((data: any) => {
+  override ngOnInit(): void {
+    this.apiProduct.getAll().subscribe((data: any) => {
       this.productOptions = data;
     });
+
+    super.ngOnInit();
   }
 
-  ngOnInit(): void {}
-  get products() {
-    return this.productForm.get('products') as FormArray;
+  override initializeFormGroup(data: SaleOrder | undefined = undefined) {
+    this.formGroup = this.formBuilder.group({
+      id: [data?.id],
+      orderDate: [
+        data?.orderDate === null || data?.orderDate === undefined
+          ? new Date()
+          : this.convertToDate(data.orderDate.toString()),
+      ],
+      cost: [data?.cost ?? ''],
+    });
+
+    this.productForm = this.formBuilder.group({
+      saleOrderProducts: this.formBuilder.array([]),
+    });
+    if (data?.saleOrderProducts) {
+      data.saleOrderProducts.forEach((product: SaleProductOrder) => {
+        this.addProduct(product);
+      });
+      this.calculateTotalCost();
+    }
   }
 
-  addProduct() {
+  get saleOrderProducts() {
+    return this.productForm?.get('saleOrderProducts') as FormArray;
+  }
+
+  addProduct(productAdded: SaleProductOrder | undefined = undefined) {
     let product = this.formBuilder.group({
-      productId: ['', Validators.required],
-      price: [''],
-      quantity: ['', Validators.required],
+      id: [productAdded?.id ?? null],
+      saleOrderId: [productAdded?.saleOrderId ?? null, Validators.required],
+      saleProductId: [productAdded?.saleProductId ?? null, Validators.required],
+      price: [productAdded?.price ?? null],
+      quantity: [productAdded?.quantity ?? null, Validators.required],
+      cost: [''],
     });
 
-    product.valueChanges.subscribe((productModified: any) => {
-      const selectedProduct = this.productOptions.find(
-        (product) =>
-          product.id?.toString() === productModified.productId.toString()
-      );
-      if (selectedProduct) {
-        product.get('price')?.setValue(selectedProduct.price.toString());
-        this.calculateTotalCost();
-      }
-    });
-
-    this.products.push(product);
+    this.saleOrderProducts.push(product);
   }
 
   deleteProduct(index: number) {
-    this.products.removeAt(index);
-    this.calculateTotalCost();
+    this.saleOrderProducts.removeAt(index);
   }
 
-  addOrder() {
-    const mappedProducts = this.products.value.map((product: any) => {
-      return {
-        saleProductId: product.productId,
-        price: product.price as number,
-        quantity: product.quantity,
-        cost: (product.price as number) * (product.quantity as number),
-      };
+  calculateTotalCost(): number {
+    let totalCost = 0;
+    this.saleOrderProducts?.value.forEach((product: any) => {
+      if (product?.price !== null && product?.quantity !== null) {
+        const price = parseFloat(product.price);
+        const quantity = parseInt(product.quantity);
+        totalCost += price * quantity;
+      }
     });
+    return totalCost;
+  }
 
-    let orderData: any = {
-      orderDate: new Date(),
-      received: false,
-      cost: this.totalCost,
+  override afterSave() {
+    this.router.navigate(['/sale-orders']);
+  }
+
+  override async mapToSaveData() {
+    let mappedProducts: SaleProductOrder[] = this.saleOrderProducts.value.map(
+      (product: any) => {
+        return {
+          id: product.id,
+          saleOrderId: product.saleOrderId,
+          saleProductId: product.saleProductId,
+          price: product.price as number,
+          quantity: product.quantity,
+          cost: (product.price as number) * (product.quantity as number),
+        };
+      }
+    );
+
+    let orderData: SaleOrder = {
+      id: this.formGroup.get('id')?.value,
+      orderDate: this.formGroup.get('orderDate')?.value,
+      cost: this.calculateTotalCost(),
       saleOrderProducts: mappedProducts,
     };
 
-    this.api.saveOrder(orderData).subscribe((response) => {
-      console.log('Order added successfully:', response);
-    });
-  }
-
-  calculateTotalCost() {
-    let totalCost = 0;
-    this.products.value.forEach((product: any) => {
-      const price = parseFloat(product.price);
-      const quantity = parseInt(product.quantity);
-      totalCost += price * quantity;
-    });
-    this.totalCost = totalCost;
-  }
-  saleOrder() {
-    let saleOrderInfo = {
-      supplier: this.saleOrderForm.get('supplier')?.value,
-      arrivalDate: this.saleOrderForm.get('arrivalDate')?.value,
-    };
+    this.saveData = orderData;
   }
 }

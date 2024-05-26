@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiInventoryService } from '../api.service.inventories';
 import { ApiShopProductService } from '../../shop-products/api.service.shop-products';
 import { Inventory } from 'src/app/features/inventories/inventory-models';
 import { ShopProduct } from 'src/app/features/shop-products/shop-product-models';
+import { BaseFormComponent } from 'src/app/shared/base-form';
 
 @Component({
   selector: 'app-inventory',
   templateUrl: './form.component.html',
 })
-export class InventoryFormComponent implements OnInit {
+export class InventoryFormComponent
+  extends BaseFormComponent<Inventory>
+  implements OnInit
+{
   inventoryForm!: FormGroup;
   productForm!: FormGroup;
   responseMsg: string = '';
@@ -18,16 +22,32 @@ export class InventoryFormComponent implements OnInit {
   productOptions: ShopProduct[] = [];
 
   constructor(
+    public override api: ApiInventoryService,
+    public override router: Router,
+    public override route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private api: ApiInventoryService,
-    private apiProducts: ApiShopProductService,
-    private router: Router
+    private apiProducts: ApiShopProductService
   ) {
-    this.inventoryForm = this.formBuilder.group({
-      shopProductId: ['', [Validators.required]],
-      quantity: [''],
-      description: [''],
-      minimumLevel: [''],
+    super(api, router, route);
+  }
+
+  get products() {
+    return this.productForm.get('products') as FormArray;
+  }
+  override ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  override initializeFormGroup(data: Inventory | undefined = undefined) {
+    this.formGroup = this.formBuilder.group({
+      id: [data?.id],
+      shopProductId: [data?.shopProductId ?? null, [Validators.required]],
+      quantity: [data?.quantity ?? null],
+      description: [data?.description ?? ''],
+      minimumLevel: [data?.minimumLevel ?? ''],
+    });
+    this.apiProducts.getAll().subscribe((data: any) => {
+      this.productOptions = data;
     });
     this.productForm = this.formBuilder.group({
       products: this.formBuilder.array([]),
@@ -38,22 +58,7 @@ export class InventoryFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-  get products() {
-    return this.productForm.get('products') as FormArray;
-  }
-
-  addInventory() {
-    let inventoryData: Inventory = {
-      description: this.inventoryForm.get('description')?.value,
-      minimumLevel: this.inventoryForm.get('minimumLevel')?.value,
-      quantity: this.inventoryForm.get('quantity')?.value,
-      shopProductId: this.inventoryForm.get('shopProductId')?.value,
-    };
-
-    this.api.saveInventory(inventoryData).subscribe((response) => {
-      console.log('Inventory added successfully:', response);
-      this.router.navigate(['/inventories']); 
-    });
+  override afterSave() {
+    this.router.navigate(['/inventories']);
   }
 }
