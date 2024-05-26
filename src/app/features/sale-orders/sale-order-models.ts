@@ -4,7 +4,8 @@ export interface SaleOrder extends LocationDto {
     id: number;
     cost: number;
     orderDate: Date;
-    products: SaleProductOrder[];
+    products?: string;
+    saleOrderProducts: SaleProductOrder[];
 }
 
 export interface SaleProductOrder {

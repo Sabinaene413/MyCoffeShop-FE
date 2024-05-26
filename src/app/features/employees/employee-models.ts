@@ -8,6 +8,7 @@ export interface Employee extends LocationDto {
     salaryNet?: number;
     salaryBrut?: number;
     taxes?: number;
+    employeeTypeId?: number;
     profilePhoto: Uint8Array;  // Update to match backend response
     profilePhotoContentType: string;  // To store the content type
 }
