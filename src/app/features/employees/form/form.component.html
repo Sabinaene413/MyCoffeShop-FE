@@ -66,7 +66,11 @@
           <a
             href="/add-employee"
             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-            >Adauga Angajat Nou</a
+            >{{
+              this.entityId === undefined
+                ? "Adauga angajat nou"
+                : "Actualizeaza angajat"
+            }}</a
           >
         </div>
       </li>
@@ -202,11 +206,12 @@
         />
       </div>
     </div>
+
     <h1 class="mb-6 mx-9 text-lg font-medium text-gray-900">
       Configurare Utilizator
     </h1>
-    <div class="grid gap-6 mb-6 md:grid-cols-3 mx-9">
-      <div>
+    <div class="flex mx-9 pb-9">
+      <div class="w-96">
         <label
           for="userId"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -237,12 +242,13 @@
       <button
         data-modal-target="static-modal"
         data-modal-toggle="static-modal"
-        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="text-white bg-blue-700 mx-9 mt-6 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 "
         type="button"
       >
         Creare Utilizator Nou
       </button>
-
+    </div>
+      
       <!-- Main modal -->
       <div
         id="static-modal"
@@ -285,8 +291,8 @@
               </button>
             </div>
             <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4 inline-flex items-center">
-              <form [formGroup]="registerForm">
+            <div class="p-4 md:p-5 space-y-4 flex items-center">
+              <form [formGroup]="registerForm" class="w-1/2 p-4 mx-auto text-center ">
                 <div class="mb-4 text-lg">
                   <input
                     formControlName="email"
@@ -368,7 +374,7 @@
           </div>
         </div>
       </div>
-    </div>
+
     <div class="flex justify-start">
       <button
         *ngIf="formGroup.valid"
