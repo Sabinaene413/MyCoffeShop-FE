@@ -78,6 +78,14 @@ export class SaleOrderFormComponent
       quantity: [productAdded?.quantity ?? null, Validators.required],
       cost: [''],
     });
+    
+      // Set up a subscription to adjust price based on selected product
+      product.get('saleProductId')?.valueChanges.subscribe((selectedProductId: any) => {
+        const selectedProduct = this.productOptions.find(product => product.id == (selectedProductId as number));
+        if (selectedProduct) {
+          product.get('price')?.setValue(selectedProduct.price);
+        }
+      });
 
     this.saleOrderProducts.push(product);
   }

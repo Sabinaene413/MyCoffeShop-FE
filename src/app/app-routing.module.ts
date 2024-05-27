@@ -20,6 +20,8 @@ import { StartPageComponent } from './features/public/start-page/start-page.comp
 import { AuthGuard } from './services/guard';
 import { RegisterComponent } from './features/public/register/register.component';
 import { TranscationsListComponent } from './features/transactions/list/list.component';
+import { EmployeePaymentFormComponent } from './features/employee-payments/form/form.component';
+import { EmployeePaymentsListComponent } from './features/employee-payments/list/list.component';
 
 const routes: Routes = [
   {
@@ -129,6 +131,21 @@ const routes: Routes = [
   {
     path: 'coffee-shops',
     component: CoffeeShopsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-employeePayment',
+    component: EmployeePaymentFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-employeePayment/:id',
+    component: EmployeePaymentFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'employee-payments',
+    component: EmployeePaymentsListComponent,
     canActivate: [AuthGuard],
   },
   {

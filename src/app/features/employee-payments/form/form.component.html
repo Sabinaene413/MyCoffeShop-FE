@@ -40,9 +40,9 @@
             />
           </svg>
           <a
-            href="/sale-Orders"
+            href="/employee-payments"
             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-            >Comenzi</a
+            >Plati Angajati</a
           >
         </div>
       </li>
@@ -64,96 +64,86 @@
             />
           </svg>
           <a
-            href="/add-sale-order"
+            href="/add-employeePayment"
             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-            >Adauga Comanda</a
+            >      {{
+              entityId === undefined
+                ? "Adaugă plata angajat"
+                : "Actualizeaza plata angajat"
+            }}</a
           >
         </div>
       </li>
     </ol>
   </nav>
-  <form *ngIf="productForm" [formGroup]="productForm" (ngSubmit)="save()" class="mx-9">
-    <h1 class="mb-6 mx-9 mt-8 text-xl font-medium text-gray-900">
-      {{ entityId === undefined ? "Adauga comanda" : "Actualizeaza comanda" }}
-    </h1>
-    <button
-      type="button"
-      (click)="addProduct()"
-      class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-    >
-      Adauga Produs
-    </button>
-    <div formArrayName="saleOrderProducts">
-      <div
-        *ngFor="let product of saleOrderProducts.controls; let i = index"
-        [formGroupName]="i"
-        class="flex justify-evenly py-3"
-      >
-        <label
-          for="saleProductId"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Nume:
-          <select
-            formControlName="saleProductId"
-            type="text"
-            id="saleProductId"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Produs"
-            required
-          >
-            <option *ngFor="let option of productOptions" [value]="option.id">
-              {{ option.name }}
-            </option>
-          </select>
-        </label>
-        <label
-          for="price"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Pret:
-          <input
-            type="number"
-            formControlName="price"
-            id="price"
-            aria-describedby="helper-text-explanation"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </label>
 
+  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="save()">
+    <h1 class="mb-6 mx-9 mt-8 text-xl font-medium text-gray-900">
+      {{
+        entityId === undefined
+          ? "Adaugă plata angajat"
+          : "Actualizeaza plata angajat"
+      }}
+    </h1>
+    <div class="grid gap-6 mb-6 md:grid-cols-1 mx-9">
+      <div>
         <label
-          for="quantity"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="employeeId"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
+        Angajat platit:
+
+        <select
+          formControlName="employeeId"
+          type="text"
+          id="employeeId"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Produs"
+          required
         >
-          Cantitate:
-          <input
-            formControlName="quantity"
-            id="quantity"
-            type="number"
-            aria-describedby="helper-text-explanation"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </label>
-        <div class="w-20 pt-7">
-          {{ product.get("price")?.value * product.get("quantity")?.value }} lei
-        </div>
-        <button type="button" (click)="deleteProduct(i)" class="text-lg">
-          X
-        </button>
+          <option *ngFor="let option of employeeOptions" [value]="option.id">
+            {{ option.firstName + ' ' + option.lastName }}
+          </option>
+        </select>
+      </label>
       </div>
-    </div> 
-   <hr />
-    <div class="flex justify-end">
-      <div class="m-4">{{ calculateTotalCost() }} lei</div>
+      <div>
+        <label
+          for="amount"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Valoare Plata</label
+        >
+        <input
+          formControlName="amount"
+          type="number"
+          id="amount"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Valoare Plata"
+        />
+      </div>
+      <div>
+        <label
+          for="employeePaymentDate"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Data Plata</label
+        >
+        <div class="relative max-w-sm">
+          <input
+            type="date"
+            formControlName="employeePaymentDate"
+            id="employeePaymentDate"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Data Plata"
+          />
+        </div>
+      </div>
     </div>
     <div class="flex justify-start">
       <button
         *ngIf="formGroup.valid"
         type="submit"
         [disabled]="!formGroup.valid"
-        class="text-white bg-gradient-to-r from-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center mb-2"
+        class="text-white bg-gradient-to-r from-latte-200 to-latte-100 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-lg px-6 py-3 text-center mx-9 mb-2"
       >
         Salveaza
       </button>
@@ -161,7 +151,7 @@
         *ngIf="!formGroup.valid"
         type="submit"
         [disabled]="!formGroup.valid"
-        class="text-white bg-gray-500 cursor-not-allowed font-medium rounded-lg text-lg px-6 py-3 text-center mb-2"
+        class="text-white bg-gray-500 cursor-not-allowed font-medium rounded-lg text-lg px-6 py-3 text-center mx-9 mb-2"
         disabled
       >
         Salveaza

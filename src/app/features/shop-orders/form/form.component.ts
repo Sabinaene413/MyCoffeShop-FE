@@ -46,7 +46,7 @@ export class ShopOrderFormComponent
   override initializeFormGroup(data: ShopOrder | undefined = undefined) {
     this.formGroup = this.formBuilder.group({
       id: [data?.id],
-      supplier: [data?.supplier ?? '', [Validators.required]],
+      supplier: [data?.supplier ?? ''],
       arrivalDate: [this.convertToDate(data?.arrivalDate?.toString() ?? '') ?? ''],
       cost: [data?.cost ?? ''],
     });
@@ -69,12 +69,20 @@ export class ShopOrderFormComponent
   addProduct(productAdded: ShopProductOrder | undefined = undefined) {
     let product = this.formBuilder.group({
       id: [productAdded?.id ?? null],
-      shopOrderId: [productAdded?.shopOrderId ?? null, Validators.required],
+      shopOrderId: [productAdded?.shopOrderId ?? null],
       shopProductId: [productAdded?.shopProductId ?? '', Validators.required],
-      price: [productAdded?.price ?? null],
+      price: [productAdded?.price ?? null, Validators.required],
       quantity: [productAdded?.quantity ?? null, Validators.required],
       cost: [''],
     });
+
+      // Set up a subscription to adjust price based on selected product
+      product.get('shopProductId')?.valueChanges.subscribe((selectedProductId: any) => {
+        const selectedProduct = this.productOptions.find(product => product.id == (selectedProductId as number));
+        if (selectedProduct) {
+          product.get('price')?.setValue(selectedProduct.price);
+        }
+      });
 
     this.shopOrderProducts.push(product);
   }

@@ -1,0 +1,121 @@
+<nav class="flex mb-4" aria-label="Breadcrumb">
+  <ol
+    class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse"
+  >
+    <li class="inline-flex items-center">
+      <a
+        href="#"
+        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+      >
+        <svg
+          class="w-3 h-3 me-2.5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"
+          />
+        </svg>
+        Acasa
+      </a>
+    </li>
+    <li>
+      <div class="flex items-center">
+        <svg
+          class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 9 4-4-4-4"
+          />
+        </svg>
+        <a
+          href="/employee-payments"
+          class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+          >Plati Angajati</a
+        >
+      </div>
+    </li>
+  </ol>
+</nav>
+<div class="flex space-x-12 mb-10">
+  <h2
+    class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white"
+  >
+    Plati Angajati
+  </h2>
+  <a
+    href="/add-employeePayment"
+    class="mb-4 text-2xl font-extrabold text-transparent tracking-tight bg-clip-text bg-gradient-to-r to-latte-400 from-latte-200 pt-2"
+  >
+    Adaugă plata angajat
+  </a>
+</div>
+
+<div class="relative overflow-x-auto">
+  <table
+    #grid
+    class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">Edit</th>
+        <th scope="col" class="px-6 py-3">Id</th>
+        <th scope="col" class="px-6 py-3">Angajat</th>
+        <th scope="col" class="px-6 py-3">Valoare Plata</th>
+        <th scope="col" class="px-6 py-3">Data Plata</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let employeePayment of employeePayments"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
+        <td class="px-6 py-4">
+          <a [routerLink]="['/add-employeePayment', employeePayment.id]">
+            <svg
+              class="w-6 h-6 text-gray-500 hover:text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.232 5.232l3.536 3.536M9 13l6-6M4 20h16M4 20a1 1 0 011-1h14a1 1 0 011 1M4 20l-1 1m17-1l1 1"
+              ></path>
+            </svg>
+          </a>
+        </td>
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          {{ employeePayment.id }}
+        </th>
+        <td class="px-6 py-4">
+          {{ employeeDict[employeePayment.employeeId] }}
+        </td>
+        <td class="px-6 py-4">
+          {{ employeePayment.amount }}
+        </td>
+        <td class="px-6 py-4">
+          {{ employeePayment.employeePaymentDate | date : "dd/MM/yyyy HH:mm" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

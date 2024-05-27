@@ -73,7 +73,7 @@
     </ol>
   </nav>
 
-  <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="save()" class="mx-9">
+  <form *ngIf="formGroup" [formGroup]="formGroup" class="mx-9">
     <h1 class="mb-6 mx-9 mt-8 text-xl font-medium text-gray-900">
       {{ entityId === undefined ? "Adauga comanda" : "Actualizeaza comanda" }}
     </h1>
@@ -111,7 +111,7 @@
       </div>
     </div>
   </form>
-  <form *ngIf="productForm" [formGroup]="productForm" class="mx-9">
+  <form *ngIf="productForm" [formGroup]="productForm" (ngSubmit)="save()" class="mx-9">
     <button
       type="button"
       (click)="addProduct()"

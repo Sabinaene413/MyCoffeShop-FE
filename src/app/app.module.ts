@@ -29,6 +29,8 @@ import { StartPageComponent } from './features/public/start-page/start-page.comp
 import { NotFoundComponent } from './features/public/not-found/not-found.component';
 import { RegisterComponent } from './features/public/register/register.component';
 import { TranscationsListComponent } from './features/transactions/list/list.component';
+import { EmployeePaymentsListComponent } from './features/employee-payments/list/list.component';
+import { EmployeePaymentFormComponent } from './features/employee-payments/form/form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { TranscationsListComponent } from './features/transactions/list/list.com
     StartPageComponent,
     RegisterComponent,
     NotFoundComponent,
-    TranscationsListComponent
+    TranscationsListComponent,
+    EmployeePaymentsListComponent,
+    EmployeePaymentFormComponent
   ],
   imports: [
     BrowserModule,
