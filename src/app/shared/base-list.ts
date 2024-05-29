@@ -28,16 +28,15 @@ export abstract class BaseListComponent<DTO> implements OnInit {
   }
 
   private mapToFilter(): DTO[] {
-    const filteredentitys = this.listData.filter((entity) =>
-      // entity.id.toString().includes(this.filterText) ||
+    const filteredEntitiess = this.listData.filter((entity) =>
       this.FilterFields(entity)
     );
-    return filteredentitys;
+    return filteredEntitiess;
   }
 
   private FilterFields(entity: any): boolean {
     return Object.values(entity).some((value: any) =>
-      value.toString().toLowerCase().includes(this.filterText.toLowerCase())
+      value?.toString().toLowerCase().includes(this.filterText.toLowerCase())
     );
   }
 
