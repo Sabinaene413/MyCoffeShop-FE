@@ -32,6 +32,7 @@ import { TranscationsListComponent } from './features/transactions/list/list.com
 import { EmployeePaymentsListComponent } from './features/employee-payments/list/list.component';
 import { EmployeePaymentFormComponent } from './features/employee-payments/form/form.component';
 import { PaginationFilterComponent } from './shared/top-grid/top-grid';
+import { TransactionFormComponent } from './features/transactions/form/form.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { PaginationFilterComponent } from './shared/top-grid/top-grid';
     TranscationsListComponent,
     EmployeePaymentsListComponent,
     EmployeePaymentFormComponent,
-    PaginationFilterComponent
+    PaginationFilterComponent,
+    TransactionFormComponent
   ],
   imports: [
     BrowserModule,

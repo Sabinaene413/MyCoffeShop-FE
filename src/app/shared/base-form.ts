@@ -67,4 +67,5 @@ export class BaseFormComponent<DTO> implements OnInit {
   afterSave() {}
 
   initializeFormGroup(data: DTO | undefined): void {}
+
 }

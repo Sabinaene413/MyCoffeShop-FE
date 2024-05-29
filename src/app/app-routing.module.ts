@@ -22,6 +22,7 @@ import { RegisterComponent } from './features/public/register/register.component
 import { TranscationsListComponent } from './features/transactions/list/list.component';
 import { EmployeePaymentFormComponent } from './features/employee-payments/form/form.component';
 import { EmployeePaymentsListComponent } from './features/employee-payments/list/list.component';
+import { TransactionFormComponent } from './features/transactions/form/form.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,16 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-transaction/:id',
+    component: TransactionFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-transaction',
+    component: TransactionFormComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -12,6 +12,7 @@ import { BaseFormComponent } from 'src/app/shared/base-form';
 import { EmployeePayment } from '../employee-payment-models';
 import { ApiEmployeeService } from '../../employees/api.service.employees';
 import { Employee } from '../../employees/employee-models';
+import { formatDate } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-EmployeePayment',

@@ -12,6 +12,7 @@ import { SaleProduct } from 'src/app/features/sale-products/sale-product-models'
 import { SaleOrder, SaleProductOrder } from '../sale-order-models';
 import { BaseFormComponent } from 'src/app/shared/base-form';
 import { ApiSaleProductService } from '../../sale-products/api.service.sale-products';
+import { formatDate } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-saleOrder',

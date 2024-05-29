@@ -57,11 +57,26 @@
       </li>
     </ol>
   </nav>
-  <h2
-    class="mb-14 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white"
-  >
-    Tranzactii
-  </h2>
+  <div class="flex space-x-12 mb-10">
+    <h2
+      class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white"
+    >
+      Tranzactii
+    </h2>
+    <a
+      href="/add-transaction"
+      class="mb-4 text-2xl font-extrabold text-transparent tracking-tight bg-clip-text bg-gradient-to-r to-latte-400 from-latte-200 pt-2"
+    >
+      Adaugă Tranzactie
+    </a>
+  </div>
+
+  <app-top-grid
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (filterTextChange)="onFilterTextChange($event)"
+    (pageChange)="onPageChange($event)"
+  ></app-top-grid>
   <table
     #grid
     class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -70,6 +85,7 @@
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
     >
       <tr>
+        <th scope="col" class="px-6 py-3">Edit</th>
         <th scope="col" class="px-6 py-3">Id</th>
         <th scope="col" class="px-6 py-3">Descriere</th>
         <th scope="col" class="px-6 py-3">Total</th>
@@ -79,9 +95,27 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let transaction of transactions"
+        *ngFor="let transaction of resultData"
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
       >
+        <td class="px-6 py-4">
+          <a [routerLink]="['/add-transaction', transaction.id]">
+            <svg
+              class="w-6 h-6 text-gray-500 hover:text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.232 5.232l3.536 3.536M9 13l6-6M4 20h16M4 20a1 1 0 011-1h14a1 1 0 011 1M4 20l-1 1m17-1l1 1"
+              ></path>
+            </svg>
+          </a>
+        </td>
         <th
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
