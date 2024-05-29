@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee-models';
@@ -7,6 +7,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BaseFormComponent } from 'src/app/shared/base-form';
 import { RegisterEmployeeUser, User } from '../../users/users-models';
 import { ApiUserService } from 'src/app/services/api.service';
+import { Modal, ModalOptions } from 'flowbite';
 
 @Component({
   selector: 'app-employee',
@@ -14,7 +15,8 @@ import { ApiUserService } from 'src/app/services/api.service';
 })
 export class EmployeeFormComponent
   extends BaseFormComponent<Employee>
-  implements OnInit
+  implements OnInit,
+  AfterViewInit
 {
   responseMsg: string = '';
   userOptions: User[] = [];
@@ -25,6 +27,8 @@ export class EmployeeFormComponent
   fileToUpload!: File | null;
   employeePhoto: SafeUrl | undefined;
   registerForm!: FormGroup;
+  modal!: Modal;
+  @ViewChild('staticModal') staticModal!: any;
 
   constructor(
     public override api: ApiEmployeeService,
@@ -36,14 +40,49 @@ export class EmployeeFormComponent
   ) {
     super(api, router, route);
   }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+    const $targetEl = document.getElementById('static-modal');
+
+    // options with default values
+    const options: ModalOptions = {
+      placement: 'bottom-right',
+      backdrop: 'dynamic',
+      backdropClasses: 'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+      closable: true,
+      onHide: () => {
+        console.log('modal is hidden');
+      },
+      onShow: () => {
+        console.log('modal is shown');
+      },
+      onToggle: () => {
+        console.log('modal has been toggled');
+      },
+    };
+
+    const instanceOptions = {
+      id: 'static-modal',
+      override: true,
+    };
+    if ($targetEl) {
+      this.modal = new Modal($targetEl, options);
+    } else {
+      console.error('Modal element not found');
+    }
+  }, 1600); 
+
+  }
 
   override ngOnInit(): void {
     this.apiUser.getAll().subscribe((data: any) => {
       this.userOptions = data;
     });
 
+
     super.ngOnInit();
   }
+
 
   override initializeFormGroup(data: Employee | undefined = undefined) {
     this.formGroup = this.formBuilder.group({
@@ -134,5 +173,11 @@ export class EmployeeFormComponent
     return this.sanitizer.bypassSecurityTrustUrl(
       `data:${employee.profilePhotoContentType};base64,${employee.profilePhoto}`
     );
+  }
+  openModal () {
+      this.modal.show();
+  }
+  closeModal() {
+     this.modal.hide();
   }
 }
