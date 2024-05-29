@@ -28,6 +28,12 @@
   </a>
 </div>
 
+<app-top-grid
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (filterTextChange)="onFilterTextChange($event)"
+  (pageChange)="onPageChange($event)"
+></app-top-grid>
 
 <div class="relative overflow-x-auto">
   <table
@@ -47,7 +53,7 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let shopProduct of shopProducts"
+        *ngFor="let shopProduct of resultData"
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
       >
         <td class="px-6 py-4">

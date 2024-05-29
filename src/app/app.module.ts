@@ -31,6 +31,7 @@ import { RegisterComponent } from './features/public/register/register.component
 import { TranscationsListComponent } from './features/transactions/list/list.component';
 import { EmployeePaymentsListComponent } from './features/employee-payments/list/list.component';
 import { EmployeePaymentFormComponent } from './features/employee-payments/form/form.component';
+import { PaginationFilterComponent } from './shared/top-grid/top-grid';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { EmployeePaymentFormComponent } from './features/employee-payments/form/
     NotFoundComponent,
     TranscationsListComponent,
     EmployeePaymentsListComponent,
-    EmployeePaymentFormComponent
+    EmployeePaymentFormComponent,
+    PaginationFilterComponent
   ],
   imports: [
     BrowserModule,
