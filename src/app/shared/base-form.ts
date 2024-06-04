@@ -1,7 +1,7 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AbstractApiService } from './base-api.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class BaseFormComponent<DTO> implements OnInit {
       if (id) {
         this.entityId = +id;
         this.isEditMode = true;
-        // Fetch data and populate form for editing
+
         this.api.getById(this.entityId).subscribe((data) => {
           console.log('Entity get successfully:', data);
           this.data = data;

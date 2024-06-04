@@ -26,8 +26,8 @@ import { TransactionFormComponent } from './features/transactions/form/form.comp
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
+    path: '',
+    component: StartPageComponent,
   },
   {
     path: 'users',

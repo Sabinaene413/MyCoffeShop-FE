@@ -15,6 +15,7 @@ export class AppComponent {
     initFlowbite();
   }
   isPublicPage(): boolean {
-    return this.router.url === '/start' || this.router.url === '/not-found' || this.router.url === '/register'; 
+    return this.router.url === '/start' || this.router.url === '/not-found' || this.router.url === '/register' 
+    || this.router.url === '/'; 
   }
 }
