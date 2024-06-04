@@ -15,7 +15,7 @@ export class ApiUserService extends AbstractApiService<User> {
   }
 
   login(loginInfo: LoginDto) {
-    return this.http.post('http://localhost:7015/api/' + '/Authentication/Login', loginInfo, {
+    return this.http.post('http://localhost:7015/api' + '/Authentication/Login', loginInfo, {
       responseType: 'json',
     });
   }

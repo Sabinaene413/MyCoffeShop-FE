@@ -34,8 +34,8 @@ export class StartPageComponent {
           this.responseMsg = 'Invalid Credentials!';
         else {
           this.responseMsg = '';
-          this.api.saveToken(res.accessToken);
-          this.router.navigate(['']);
+          this.api.saveToken(res.accessToken);          
+          this.router.navigate(['/shop-orders']);
         }
       },
       error: (err: any) => {

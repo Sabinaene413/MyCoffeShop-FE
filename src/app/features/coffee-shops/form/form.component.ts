@@ -40,7 +40,7 @@ export class CoffeeShopFormComponent implements OnInit {
       name: this.coffeeShopForm.get('name')?.value,
     };
 
-    this.api.saveCoffeeShop(coffeeShopData).subscribe((response) => {
+    this.api.add(coffeeShopData).subscribe((response) => {
       console.log('CoffeeShop added successfully:', response);
     });
   }

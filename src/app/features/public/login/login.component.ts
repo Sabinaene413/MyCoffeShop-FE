@@ -40,7 +40,7 @@ export class LoginComponent {
       locationId: fb.control(null),
     });
 
-    this.apiCoffeeShops.getAllCoffeeShops().subscribe((res: any) => {
+    this.apiCoffeeShops.getAll().subscribe((res: any) => {
       this.coffeeShopOptions = res;
     });
   }
@@ -59,6 +59,7 @@ export class LoginComponent {
         else {
           this.responseMsg = '';
           this.api.saveToken(res.accessToken);
+          this.router.navigate(['/shop-orders']);
         }
       },
       error: (err: any) => {
