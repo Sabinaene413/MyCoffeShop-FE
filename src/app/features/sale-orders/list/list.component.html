@@ -29,7 +29,12 @@
   </a>
 </div>
 
-
+<app-top-grid
+[currentPage]="currentPage"
+[totalPages]="totalPages"
+(filterTextChange)="onFilterTextChange($event)"
+(pageChange)="onPageChange($event)"
+></app-top-grid>
 <div class="relative overflow-x-auto">
   <table
     #grid
@@ -47,7 +52,7 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let saleOrder of saleOrders"
+        *ngFor="let saleOrder of resultData"
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
       >
         <th

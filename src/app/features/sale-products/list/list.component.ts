@@ -1,22 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SaleProduct } from 'src/app/features/sale-products/sale-product-models';
 import { ApiSaleProductService } from '../api.service.sale-products';
+import { BaseListComponent } from 'src/app/shared/base-list';
 
 @Component({
   selector: 'app-sale-product-list',
   templateUrl: './list.component.html',
 })
-export class SaleProductsListComponent {
+export class SaleProductsListComponent extends BaseListComponent<SaleProduct> implements OnInit {
   @ViewChild('grid') grid: any;
-  saleProducts: SaleProduct[] = [];
-  constructor(private api: ApiSaleProductService) {}
 
-  ngOnInit(): void {
-    this.api.getAll().subscribe({
-      next: (res: SaleProduct[]) => {
-        this.saleProducts = res;
-      },
-      error: (err: any) => console.log(err),
-    });
+  constructor(api: ApiSaleProductService) {super (api)}
+
+  override ngOnInit(): void {
+    super.ngOnInit();
   }
 }
