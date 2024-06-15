@@ -34,6 +34,7 @@ import { EmployeePaymentFormComponent } from './features/employee-payments/form/
 import { PaginationFilterComponent } from './shared/top-grid/top-grid';
 import { TransactionFormComponent } from './features/transactions/form/form.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { ProfitGraphComponent } from './features/dashboard/profit-graph/profit-graph.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
     EmployeePaymentFormComponent,
     PaginationFilterComponent,
     TransactionFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfitGraphComponent
   ],
   imports: [
     BrowserModule,

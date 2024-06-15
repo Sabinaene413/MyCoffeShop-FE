@@ -6,6 +6,7 @@ export interface DashboardDto {
   budget: number;
   noOfSales: number;
   noOfSalesCurrentMonth: number;
+  noOfSalesLastMonth: number;
 }
 
 export interface ShopSalesDto {
