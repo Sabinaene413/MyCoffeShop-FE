@@ -23,6 +23,7 @@ import { TranscationsListComponent } from './features/transactions/list/list.com
 import { EmployeePaymentFormComponent } from './features/employee-payments/form/form.component';
 import { EmployeePaymentsListComponent } from './features/employee-payments/list/list.component';
 import { TransactionFormComponent } from './features/transactions/form/form.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -166,6 +167,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent 
   }
 ];
 

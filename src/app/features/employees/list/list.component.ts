@@ -1,24 +1,21 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../employee-models';
 import { ApiEmployeeService } from '../api.service.employees';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { BaseListComponent } from 'src/app/shared/base-list';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './list.component.html',
 })
-export class EmployeesListComponent {
+export class EmployeesListComponent extends BaseListComponent<Employee> implements OnInit{
   @ViewChild('grid') grid: any;
-  employees: Employee[] = [];
-  constructor(private api: ApiEmployeeService, private sanitizer: DomSanitizer) {}
+  constructor(api: ApiEmployeeService, private sanitizer: DomSanitizer) {
+    super(api)
+  }
 
-  ngOnInit(): void {
-    this.api.getAll().subscribe({
-      next: (res: Employee[]) => {
-        this.employees = res;
-      },
-      error: (err: any) => console.log(err),
-    });
+  override ngOnInit(): void {
+    super.ngOnInit();
   }
   
   getProfilePhoto(employee: Employee): SafeUrl {

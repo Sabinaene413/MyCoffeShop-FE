@@ -11,7 +11,7 @@ export abstract class BaseListComponent<DTO> implements OnInit {
   //used to store data after backend api call
   listData: DTO[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 9;
   totalPages: number = 1;
   filterText: string = '';
 

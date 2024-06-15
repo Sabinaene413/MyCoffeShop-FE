@@ -1,7 +1,7 @@
 <div class="flex mb-4 justify-between">
     <input
       type="text"
-      placeholder="Search..."
+      placeholder="Cauta..."
       (input)="onFilter($event)"
       class="mb-4 p-2 border border-gray-300 rounded-md"
     />
@@ -11,15 +11,15 @@
         [disabled]="currentPage === 1"
         class="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
       >
-        Previous
+        Inapoi
       </button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <span>Pagina {{ currentPage }} din {{ totalPages }}</span>
       <button
         (click)="nextPage()"
         [disabled]="currentPage === totalPages"
         class="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
       >
-        Next
+        Inainte
       </button>
     </div>
   </div>

@@ -60,7 +60,12 @@
     Adaugă plata angajat
   </a>
 </div>
-
+<app-top-grid
+[currentPage]="currentPage"
+[totalPages]="totalPages"
+(filterTextChange)="onFilterTextChange($event)"
+(pageChange)="onPageChange($event)"
+></app-top-grid>
 <div class="relative overflow-x-auto">
   <table
     #grid
