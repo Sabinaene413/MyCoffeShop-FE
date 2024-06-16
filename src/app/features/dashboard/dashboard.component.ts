@@ -115,7 +115,7 @@ export class DashboardComponent implements OnInit {
       });
 
     let request: ReportRequestDto = {
-      refferenceDate: new Date(2023, 7, 15),
+      refferenceDate: undefined,
       reportType: 3,
     };
 

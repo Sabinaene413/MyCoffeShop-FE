@@ -129,7 +129,7 @@ export class ProfitGraphComponent implements OnInit {
   };
   initializeBarChart(): void {
     let request: ProfitSixMonthsRequestDto = {
-      refferenceDate: new Date(2023, 7, 15),
+      refferenceDate: undefined,
     };
 
     this.apiDashboardService
