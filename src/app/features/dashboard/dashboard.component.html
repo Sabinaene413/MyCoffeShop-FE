@@ -116,7 +116,9 @@
           <p
             class="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600"
           >
-            <strong class="text-red-500">-2%</strong>&nbsp;than yesterday
+            <strong class="text-red-500"
+              >{{ dashboardDto.increasePercentageCurrentMonthSales }}%</strong
+            >&nbsp;fata de luna trecuta
           </p>
         </div>
       </div>
@@ -142,27 +144,25 @@
           <p
             class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600"
           >
-            Profit lunar
+            Total Produse Vandute
           </p>
           <h4
             class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900"
           >
-            $103,430
+            {{ dashboardDto.noOfSelledItems }}
           </h4>
         </div>
         <div class="border-t border-blue-gray-50 p-4">
           <p
             class="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600"
-          >
-            <strong class="text-green-500">+5%</strong>&nbsp;than yesterday
-          </p>
+          ></p>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
-
+<div class="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
   <div
     class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6"
   >
@@ -171,7 +171,7 @@
         <h5
           class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"
         >
-          {{dashboardDto.noOfSalesLastMonth}} (LEI)
+          {{ dashboardDto?.noOfSalesLastMonth ?? 0 }} (LEI)
         </h5>
         <p class="text-base font-normal text-gray-500 dark:text-gray-400">
           Comenzi ultima luna
@@ -201,8 +201,8 @@
     <div id="area-chart"></div>
   </div>
 
-<app-profit-graph></app-profit-graph>
-<table class="table-auto col-span-2">
+  <app-profit-graph></app-profit-graph>
+  <table class="table-auto col-span-2">
     <thead>
       <tr>
         <th>Numele Prodususlui</th>
@@ -210,19 +210,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-        <td>Malcolm Lockyer</td>
-      </tr>
-      <tr>
-        <td>Witchy Woman</td>
-        <td>The Eagles</td>
-      </tr>
-      <tr>
-        <td>Shining Star</td>
-        <td>Earth, Wind, and Fire</td>
+      <tr
+        *ngFor="let product of topSalesDto"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
+        <td class="px-6 py-4">{{ product.productName }}</td>
+        <td class="px-6 py-4">{{ product.totalSales }}</td>
       </tr>
     </tbody>
   </table>
-</div>
 </div>
